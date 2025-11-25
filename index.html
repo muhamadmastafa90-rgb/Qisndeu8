@@ -1,69 +1,40 @@
 <!DOCTYPE html>
-<html lang="ku">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Server Home</title>
 <style>
-
-    body {
-        font-family: Arial;
-        background: #101010;
-        margin: 0;
-        color: white;
+    body { font-family: Arial; background: #111; color: #fff; margin: 0; padding: 0; }
+    .header { text-align: center; padding: 30px; }
+    .logo { width: 120px; border-radius: 50%; }
+    .section { padding: 20px; text-align: center; }
+    .btn {
+        display: block; width: 220px; margin: 10px auto; padding: 12px;
+        background: #222; color: #fff; text-decoration: none; border-radius: 10px;
+        border: 1px solid #444; transition: 0.3s;
     }
-
-    .menu {
-        background: #1f1f1f;
-        padding: 15px 20px;
-        font-size: 30px;
-        cursor: pointer;
-        color: #f2c200;
-        border-bottom: 2px solid #f2c200;
-    }
-
-    .menu:hover {
-        background: #292929;
-    }
-
-    .main-box {
-        width: 90%;
-        background: #1b1b1b;
-        border: 2px solid #f2c200;
-        margin: 25px auto;
-        border-radius: 15px;
-        padding: 25px;
-        text-align: center;
-    }
-
-    .server-logo {
-        width: 130px;
-        height: 130px;
-        border-radius: 12px;
-        border: 3px solid #f2c200;
-        object-fit: cover;
-    }
-
-    h2 {
-        color: #f2c200;
-        margin-top: 25px;
-    }
-
+    .btn:hover { background: #333; }
 </style>
 </head>
 
 <body>
 
-<div class="menu" onclick="location.href='menu.html'">≡</div>
+<div class="header">
+    <img class="logo" src="https://i.ibb.co/vcJdCtj/server.png" alt="Server Logo">
+    <h1>Server Name</h1>
+    <p>Welcome to our official server page!</p>
+</div>
 
-<div class="main-box">
-    <img class="server-logo" src="YOUR SERVER LOGO">
+<div class="section">
+    <h2>About Server</h2>
+    <p>Write something about your server here...</p>
+</div>
 
-    <h1 style="color:#f2c200;">Server Name</h1>
-
-    <p style="font-size:18px;">
-        دەربارەی سێرڤەر لێرە دابنوسە. هەر شتێک دەتەوێت.
-    </p>
-
+<div class="section">
+    <h2>Menu</h2>
+    <a class="btn" href="server.html">Server Link</a>
+    <a class="btn" href="profile.html">Admin Profile</a>
+    <a class="btn" href="rules.html">Rules Server</a>
 </div>
 
 </body>
