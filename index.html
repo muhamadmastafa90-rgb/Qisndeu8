@@ -1,143 +1,430 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ku">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luminara Universe</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Server Admin Profile — Luminara</title>
+<style>
+  :root{
+    --bg:#070518;
+    --card:#0f1222;
+    --accent:#7c5cff;
+    --accent-2:#3be8b0;
+    --glass: rgba(255,255,255,0.04);
+    --muted: #bfc6d8;
+  }
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background: #000;
-            font-family: Arial, sans-serif;
-        }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:
+      radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,0.08), transparent 8%),
+      radial-gradient(900px 400px at 90% 90%, rgba(59,232,176,0.06), transparent 10%),
+      var(--bg);
+    color:#e8eefc;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:48px 20px;
+    gap:24px;
+  }
 
-        /* ⭐ STAR BACKGROUND */
-        .stars {
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(white 1px, transparent 1px), black;
-            background-size: 3px 3px;
-            position: absolute;
-            animation: moveStars 60s linear infinite;
-            opacity: 0.4;
-        }
+  .container{
+    width:1200px;
+    max-width:100%;
+  }
 
-        @keyframes moveStars {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-500px, -500px); }
-        }
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:24px;
+  }
 
-        /* 🌍 EARTH (animated) */
-        .earth {
-            position: absolute;
-            right: -150px;
-            bottom: -100px;
-            width: 450px;
-            height: 450px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #4bc0ff, #005a9c);
-            overflow: hidden;
-            animation: rotateEarth 25s linear infinite;
-        }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
 
-        @keyframes rotateEarth {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+  .logo{
+    width:56px;height:56px;border-radius:12px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    display:grid;place-items:center;
+    font-weight:800;font-size:18px;color:white;
+    box-shadow:0 6px 20px rgba(124,92,255,0.22), inset 0 -6px 18px rgba(0,0,0,0.2);
+  }
 
-        .earth::before {
-            content: "";
-            position: absolute;
-            width: 200%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                90deg,
-                #4caf50 0px,
-                #4caf50 40px,
-                transparent 40px,
-                transparent 80px
-            );
-            opacity: 0.6;
-            animation: moveLand 8s linear infinite;
-        }
+  h1{font-size:20px;margin:0}
+  p.lead{margin:0;color:var(--muted);font-size:13px}
 
-        @keyframes moveLand {
-            from { transform: translateX(0); }
-            to { transform: translateX(-200px); }
-        }
+  /* grid of cards */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:20px;
+  }
 
-        /* ☄ SHOOTING METEORS */
-        .meteor {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 15px #a7d9ff;
-            animation: meteorMove 3s linear infinite;
-        }
+  @media (max-width:1100px){
+    .grid{grid-template-columns:repeat(3,1fr)}
+  }
+  @media (max-width:700px){
+    .grid{grid-template-columns:repeat(1,1fr)}
+  }
 
-        @keyframes meteorMove {
-            from {
-                transform: translate(0, 0) rotate(45deg);
-                opacity: 1;
-            }
-            to {
-                transform: translate(800px, 800px) rotate(45deg);
-                opacity: 0;
-            }
-        }
+  /* card */
+  .card{
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+    border-radius:16px;
+    padding:18px;
+    position:relative;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.04);
+    transform-style:preserve-3d;
+    transition:transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s;
+    will-change:transform;
+    cursor:default;
+  }
 
-        .meteor:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
-        .meteor:nth-child(2) { top: 30%; left: 50%; animation-delay: 1s; }
-        .meteor:nth-child(3) { top: 5%; left: 70%; animation-delay: 2s; }
+  /* subtle animated shine */
+  .card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.02) 45%, rgba(255,255,255,0.03) 50%, transparent 55%);
+    transform:translateX(-120%);
+    transition:transform .8s linear;
+    pointer-events:none;
+  }
 
-        /* TEXT */
-        .title {
-            position: absolute;
-            top: 25%;
-            left: 10%;
-            font-size: 60px;
-            font-weight: 900;
-            color: white;
-            text-shadow: 0 0 20px white;
-        }
+  .card:hover::after{ transform:translateX(120%) }
 
-        .owner {
-            position: absolute;
-            top: 45%;
-            left: 10%;
-            color: #ccc;
-            font-size: 20px;
-        }
+  .card:hover{
+    box-shadow: 0 20px 50px rgba(4,6,20,0.6), 0 6px 18px rgba(124,92,255,0.08);
+    transform: translateY(-8px) scale(1.02);
+  }
 
-        @media (max-width: 600px) {
-            .title { font-size: 35px; }
-            .owner { font-size: 16px; }
-            .earth { width: 260px; height: 260px; right: -100px; bottom: -80px; }
-        }
-    </style>
+  .top{
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+
+  .avatar{
+    width:72px;height:72px;border-radius:12px;
+    background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    display:grid;place-items:center;font-weight:700;font-size:28px;
+    color:var(--accent);
+    border:1px solid rgba(255,255,255,0.03);
+    position:relative;
+    z-index:2;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  }
+
+  .name{
+    font-size:16px;font-weight:700;margin:0;
+  }
+  .role{font-size:12px;color:var(--muted);margin-top:4px}
+
+  .flag{
+    margin-left:auto;font-size:22px;
+    filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+  }
+
+  .meta{
+    display:flex;gap:10px;margin-top:12px;
+  }
+  .meta .stat{
+    background:var(--glass);
+    padding:8px 10px;border-radius:10px;font-size:13px;color:var(--muted);
+    display:inline-flex;gap:8px;align-items:center;
+  }
+
+  .bio{
+    margin-top:14px;color:#dbe6ff;font-size:13px;line-height:1.35;
+    min-height:56px;
+  }
+
+  .actions{
+    display:flex;gap:10px;margin-top:14px;align-items:center;
+  }
+
+  .btn{
+    padding:10px 14px;border-radius:10px;border:none;background:transparent;color:var(--muted);
+    font-weight:600;font-size:13px;border:1px solid rgba(255,255,255,0.04);
+    cursor:pointer;transition:all .2s;
+    backdrop-filter: blur(6px);
+  }
+  .btn.primary{
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    color:#031024;
+    box-shadow:0 8px 26px rgba(124,92,255,0.18);
+    border: none;
+  }
+  .btn:hover{transform:translateY(-3px);}
+
+  /* badge ribbon */
+  .ribbon{
+    position:absolute;left:-40px;top:14px;transform:rotate(-45deg);
+    background:var(--accent);color:#031024;padding:6px 70px;font-weight:700;
+    box-shadow:0 8px 20px rgba(124,92,255,0.12);
+    font-size:12px;
+  }
+
+  /* animated rings behind avatar */
+  .avatar::before, .avatar::after{
+    content:"";
+    position:absolute;border-radius:12px;inset:0;
+    z-index:1;
+    filter:blur(12px);opacity:0.9;
+  }
+  .avatar::before{
+    background:linear-gradient(135deg, rgba(124,92,255,0.12), transparent 40%);
+    transform:scale(1.6);
+    transition:transform .5s;
+  }
+  .card:hover .avatar::before{ transform:scale(2); }
+
+  /* small footer row */
+  .card-footer{
+    display:flex;align-items:center;justify-content:space-between;margin-top:16px;color:var(--muted);font-size:13px;
+  }
+
+  /* cool pulse background element */
+  .glow{
+    position:absolute;right:-40px;bottom:-40px;width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(124,92,255,0.18), transparent 30%);
+    filter:blur(30px);opacity:0.9;pointer-events:none;
+  }
+
+  /* tiny sparkle animation */
+  .spark{
+    position:absolute;width:5px;height:5px;border-radius:50%;background:#fff;opacity:0.9;
+    box-shadow:0 0 12px rgba(255,255,255,0.9);
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%{transform:translateY(0) translateX(0);opacity:0.9}
+    50%{transform:translateY(-18px) translateX(8px);opacity:0.6}
+    100%{transform:translateY(0) translateX(0);opacity:0.9}
+  }
+
+  /* small utilities */
+  .muted{color:var(--muted);font-size:13px}
+</style>
 </head>
-
 <body>
 
-    <!-- Stars -->
-    <div class="stars"></div>
+<div class="container">
+  <header>
+    <div class="brand">
+      <div class="logo">LU</div>
+      <div>
+        <h1>Server Admin Profiles</h1>
+        <p class="lead">٥ کارتەی تایبەت بۆ ئەدمینەکانی سێرڤەر — نیشتمان، رول و action</p>
+      </div>
+    </div>
 
-    <!-- Meteors -->
-    <div class="meteor"></div>
-    <div class="meteor"></div>
-    <div class="meteor"></div>
+    <div class="muted">Luminara • Design Showcase</div>
+  </header>
 
-    <!-- Earth -->
-    <div class="earth"></div>
+  <main class="grid" id="grid">
 
-    <!-- Text -->
-    <div class="title">LUMINARA<br>UNIVERSE</div>
-    <div class="owner">OWNERSHIP ~ DAVID</div>
+    <!-- Card 1 -->
+    <article class="card" data-name="Ares" data-flag="🇮🇶" data-role="Head Admin">
+      <div class="ribbon">Admin</div>
+      <div class="top">
+        <div class="avatar">A</div>
+        <div>
+          <div class="name">Ares</div>
+          <div class="role">Head Admin</div>
+        </div>
+        <div class="flag">🇮🇶</div>
+      </div>
 
+      <div class="meta">
+        <div class="stat">⭐ 4.9</div>
+        <div class="stat">👥 12k Members</div>
+      </div>
+
+      <div class="bio">پەرەی فرمانڕاوە — خاوەن دەستەواژە و ڕێکخستنەکان. کارەبا و دڵسۆزی تایبەتی بۆ کۆمەڵگە.</div>
+
+      <div class="actions">
+        <button class="btn">Message</button>
+        <button class="btn primary">Profile</button>
+      </div>
+
+      <div class="card-footer">
+        <div>Since 2020</div>
+        <div class="muted">Last online: 2h</div>
+      </div>
+
+      <div class="glow"></div>
+      <div class="spark" style="left:12%; top:10%; animation-delay:0s"></div>
+      <div class="spark" style="left:70%; top:22%; animation-delay:1.2s"></div>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="card" data-name="Nova" data-flag="🇹🇷" data-role="Moderator">
+      <div class="ribbon" style="background:linear-gradient(90deg,#3be8b0,#7c5cff)">Mod</div>
+      <div class="top">
+        <div class="avatar">N</div>
+        <div>
+          <div class="name">Nova</div>
+          <div class="role">Moderator</div>
+        </div>
+        <div class="flag">🇹🇷</div>
+      </div>
+
+      <div class="meta">
+        <div class="stat">🛡️ 98% Reports</div>
+        <div class="stat">📣 Events</div>
+      </div>
+
+      <div class="bio">پاشەکەوت و ڕێکخستن — ئازمایش و رێکخستنەکانی ھەڵبژاردن و ئەنجامدانی ئەوکات.</div>
+
+      <div class="actions">
+        <button class="btn">DM</button>
+        <button class="btn primary">Profile</button>
+      </div>
+
+      <div class="card-footer">
+        <div>Since 2021</div>
+        <div class="muted">Last online: 14m</div>
+      </div>
+
+      <div class="glow" style="background:radial-gradient(circle at 30% 30%, rgba(59,232,176,0.14), transparent 30%)"></div>
+      <div class="spark" style="left:28%; top:8%; animation-delay:.6s"></div>
+    </article>
+
+    <!-- Card 3 -->
+    <article class="card" data-name="Lyra" data-flag="🇸🇾" data-role="Event Creator">
+      <div class="ribbon">Creator</div>
+      <div class="top">
+        <div class="avatar">L</div>
+        <div>
+          <div class="name">Lyra</div>
+          <div class="role">Event Creator</div>
+        </div>
+        <div class="flag">🇸🇾</div>
+      </div>
+
+      <div class="meta">
+        <div class="stat">🎉 320 Events</div>
+        <div class="stat">📅 Schedule</div>
+      </div>
+
+      <div class="bio">کارگێڕی ئەو بەرنامانەی کە هاوبەش و مەۆدێرن دەکەن — ڕێکخستنی گەیشتن.</div>
+
+      <div class="actions">
+        <button class="btn">Invite</button>
+        <button class="btn primary">Profile</button>
+      </div>
+
+      <div class="card-footer">
+        <div>Since 2022</div>
+        <div class="muted">Last online: 1d</div>
+      </div>
+      <div class="glow"></div>
+      <div class="spark" style="left:58%; top:6%; animation-delay:0.9s"></div>
+    </article>
+
+    <!-- Card 4 -->
+    <article class="card" data-name="Orion" data-flag="🇮🇹" data-role="Support">
+      <div class="ribbon" style="background:#ffd166;color:#04203a">Support</div>
+      <div class="top">
+        <div class="avatar">O</div>
+        <div>
+          <div class="name">Orion</div>
+          <div class="role">Support</div>
+        </div>
+        <div class="flag">🇮🇹</div>
+      </div>
+
+      <div class="meta">
+        <div class="stat">💬 Quick Reply</div>
+        <div class="stat">🧰 Tools</div>
+      </div>
+
+      <div class="bio">پشتیوانی ئەرکە — یارمەتیدانی ئەندام، چاکسازی و ڕایگرتن لە کێشەکان.</div>
+
+      <div class="actions">
+        <button class="btn">Help</button>
+        <button class="btn primary">Profile</button>
+      </div>
+
+      <div class="card-footer">
+        <div>Since 2020</div>
+        <div class="muted">Last online: 5m</div>
+      </div>
+
+      <div class="glow" style="background:radial-gradient(circle at 30% 30%, rgba(255,209,102,0.12), transparent 30%)"></div>
+      <div class="spark" style="left:86%; top:18%; animation-delay:1.4s"></div>
+    </article>
+
+    <!-- Card 5 -->
+    <article class="card" data-name="Kai" data-flag="🇯🇵" data-role="DevOps">
+      <div class="ribbon">DevOps</div>
+      <div class="top">
+        <div class="avatar">K</div>
+        <div>
+          <div class="name">Kai</div>
+          <div class="role">DevOps</div>
+        </div>
+        <div class="flag">🇯🇵</div>
+      </div>
+
+      <div class="meta">
+        <div class="stat">⚙️ Infra</div>
+        <div class="stat">🔒 Security</div>
+      </div>
+
+      <div class="bio">کۆنفیگ و سێت‌آپ — بەرهەم هێنانی زیرەکی سێرڤەری و نەرم‌افزار.</div>
+
+      <div class="actions">
+        <button class="btn">SSH</button>
+        <button class="btn primary">Profile</button>
+      </div>
+
+      <div class="card-footer">
+        <div>Since 2019</div>
+        <div class="muted">Last online: 3h</div>
+      </div>
+
+      <div class="glow"></div>
+      <div class="spark" style="left:44%; top:14%; animation-delay:.4s"></div>
+    </article>
+
+  </main>
+</div>
+
+<script>
+  // simple tilt effect (mouse)
+  document.querySelectorAll('.card').forEach(card=>{
+    card.addEventListener('mousemove', e=>{
+      const rect = card.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+      const rx = (py - 0.5) * 8; // rotateX
+      const ry = (px - 0.5) * -12; // rotateY
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+    });
+    card.addEventListener('mouseleave', ()=>{
+      card.style.transform = '';
+    });
+
+    // click Profile button -> open a modal (simple alert for demo)
+    const btn = card.querySelector('.btn.primary');
+    btn.addEventListener('click', ()=>{
+      const name = card.dataset.name || "Profile";
+      const flag = card.dataset.flag || "";
+      const role = card.dataset.role || "";
+      alert(`${name} ${flag}\nRole: ${role}\n\nOpen detailed profile (demo).`);
+    });
+  });
+</script>
 </body>
 </html>
