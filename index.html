@@ -2,77 +2,111 @@
 <html lang="ku">
 <head>
 <meta charset="UTF-8">
-<title>Server Admin Profile</title>
+<title>Server Admin Panel</title>
 <style>
+
     body {
-        font-family: Arial, sans-serif;
-        background: #111;
-        color: white;
+        font-family: Arial;
+        background: #121212;
         margin: 0;
-        padding: 20px;
+        color: white;
     }
 
-    h1, h2 {
+    /* Header + Menu */
+    .menu {
+        background: #1f1f1f;
+        padding: 15px 20px;
+        font-size: 30px;
+        cursor: pointer;
+        color: #f2c200;
+        border-bottom: 2px solid #f2c200;
+    }
+
+    /* Section Title */
+    h2 {
         text-align: center;
         color: #f2c200;
+        margin-top: 25px;
     }
 
-    /* ------------- SERVER INFO SECTION ---------------- */
+    /* Server Info Section */
     .server-box {
+        width: 90%;
+        margin: 20px auto;
         background: #1a1a1a;
         border: 2px solid #f2c200;
         padding: 20px;
-        margin-bottom: 40px;
-        border-radius: 10px;
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
     }
 
-    .server-item {
-        margin-bottom: 15px;
+    .server-logo {
+        width: 120px;
+        height: 120px;
+        border-radius: 15px;
+        border: 3px solid #f2c200;
+        object-fit: cover;
+    }
+
+    .server-info {
         font-size: 18px;
     }
 
-    .server-item span {
+    .server-info .name {
+        font-size: 28px;
         font-weight: bold;
         color: #f2c200;
     }
 
-    /* ------------- ADMIN PROFILE CARDS ---------------- */
+    .btn {
+        background: #f2c200;
+        color: #000;
+        padding: 10px 20px;
+        border-radius: 8px;
+        margin-right: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.2s;
+        display: inline-block;
+    }
+
+    .btn:hover {
+        background: #ffe066;
+        transform: scale(1.05);
+    }
+
+    /* Admin Profile Cards */
     .profiles {
+        width: 90%;
+        margin: auto;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 20px;
-        padding: 10px;
+        margin-bottom: 40px;
     }
 
     .card {
         background: #1b1b1b;
         border: 2px solid #f2c200;
-        border-radius: 12px;
+        border-radius: 15px;
         padding: 20px;
         text-align: center;
-        transition: 0.3s;
-    }
-
-    .card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 15px #f2c200;
     }
 
     .pfp {
-        width: 120px;
-        height: 120px;
+        width: 110px;
+        height: 110px;
         border-radius: 50%;
         border: 3px solid #f2c200;
-        margin-bottom: 15px;
+        object-fit: cover;
     }
 
     .name {
         font-size: 20px;
         font-weight: bold;
-        margin-bottom: 8px;
+        margin-top: 10px;
     }
 
     .role {
@@ -80,70 +114,51 @@
         margin-bottom: 10px;
     }
 
-    .about {
-        font-size: 14px;
-        opacity: 0.8;
-    }
 </style>
 </head>
+
 <body>
 
-<h1>Server Admin Profile</h1>
+<!-- Navigation Menu -->
+<div class="menu">≡</div>
 
-<!-- ---------------- SERVER INFO SECTION ---------------- -->
-<h2>🔶 Server Information</h2>
-
+<!-- SERVER INFO -->
+<h2>🔶 سێرڤەر</h2>
 <div class="server-box">
-    <div class="server-item"><span>Server Name:</span> Your server name here</div>
-    <div class="server-item"><span>Server Link:</span> https://yourserverlink.com</div>
-    <div class="server-item"><span>Owner:</span> Server Owner Name</div>
-    <div class="server-item"><span>About Server:</span> Describe your server shortly here...</div>
+    <img class="server-logo" src="https://i.imgur.com/8RKXAIV.png">
+    <div class="server-info">
+        <div class="name">Example Server</div>
+        <div>سێرڤەرێکی گەشەدار و چالاک بۆ خزمەتگوزاری RP</div>
+        <div style="margin-top: 10px;">
+            <a class="btn" href="#">Server Link</a>
+        </div>
+    </div>
 </div>
 
-
-<!-- ---------------- ADMIN PROFILE SECTION ---------------- -->
-<h2>🔶 Admin Profiles</h2>
+<!-- ADMIN PROFILE SECTION -->
+<h2>Admin Profiles</h2>
 
 <div class="profiles">
 
-    <!-- CARD 1 -->
     <div class="card">
-        <img src="https://i.imgur.com/8RKXAIV.png" class="pfp">
-        <div class="name">Admin Name 1</div>
+        <img class="pfp" src="https://i.imgur.com/8RKXAIV.png">
+        <div class="name">Admin 1</div>
         <div class="role">Head Admin</div>
-        <div class="about">Short description about admin...</div>
+        <div>Always active</div>
     </div>
 
-    <!-- CARD 2 -->
     <div class="card">
-        <img src="https://i.imgur.com/8RKXAIV.png" class="pfp">
-        <div class="name">Admin Name 2</div>
+        <img class="pfp" src="https://i.imgur.com/8RKXAIV.png">
+        <div class="name">Admin 2</div>
         <div class="role">Moderator</div>
-        <div class="about">Short description about admin...</div>
+        <div>Strong management</div>
     </div>
 
-    <!-- CARD 3 -->
     <div class="card">
-        <img src="https://i.imgur.com/8RKXAIV.png" class="pfp">
-        <div class="name">Admin Name 3</div>
-        <div class="role">Support Team</div>
-        <div class="about">Short description about admin...</div>
-    </div>
-
-    <!-- CARD 4 -->
-    <div class="card">
-        <img src="https://i.imgur.com/8RKXAIV.png" class="pfp">
-        <div class="name">Admin Name 4</div>
-        <div class="role">Helper</div>
-        <div class="about">Short description about admin...</div>
-    </div>
-
-    <!-- CARD 5 -->
-    <div class="card">
-        <img src="https://i.imgur.com/8RKXAIV.png" class="pfp">
-        <div class="name">Admin Name 5</div>
-        <div class="role">Staff</div>
-        <div class="about">Short description about admin...</div>
+        <img class="pfp" src="https://i.imgur.com/8RKXAIV.png">
+        <div class="name">Admin 3</div>
+        <div class="role">Support</div>
+        <div>Helpful & friendly</div>
     </div>
 
 </div>
