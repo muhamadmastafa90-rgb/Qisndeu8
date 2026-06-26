@@ -1,41 +1,226 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>Server Home</title>
-<style>
-    body { font-family: Arial; background: #111; color: #fff; margin: 0; padding: 0; }
-    .header { text-align: center; padding: 30px; }
-    .logo { width: 120px; border-radius: 50%; }
-    .section { padding: 20px; text-align: center; }
-    .btn {
-        display: block; width: 220px; margin: 10px auto; padding: 12px;
-        background: #222; color: #fff; text-decoration: none; border-radius: 10px;
-        border: 1px solid #444; transition: 0.3s;
-    }
-    .btn:hover { background: #333; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shaw Shad Night</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+  <div class="bg-stars"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="floating-hearts">
+    <span>❤</span><span>✦</span><span>❤</span><span>☾</span><span>❤</span><span>✦</span>
+  </div>
 
-<div class="header">
-    <img class="logo" src="https://i.ibb.co/vcJdCtj/server.png" alt="Server Logo">
-    <h1>Server Name</h1>
-    <p>Welcome to our official server page!</p>
-</div>
+  <main class="scene">
+    <section class="phone-shell">
+      <div class="phone-top">
+        <span id="clock">11:11</span>
+        <div class="dynamic-island"></div>
+        <span>🌙 Night</span>
+      </div>
 
-<div class="section">
-    <h2>About Server</h2>
-    <p>Write something about your server here...</p>
-</div>
+      <div class="screen">
+        <div class="moon"></div>
 
-<div class="section">
-    <h2>Menu</h2>
-    <a class="btn" href="server.html">Server Link</a>
-    <a class="btn" href="profile.html">Admin Profile</a>
-    <a class="btn" href="rules.html">Rules Server</a>
-</div>
+        <img
+          class="panda panda-left"
+          src="https://sspark.genspark.ai/cfimages?u1=g9CunFe7pursBOgtJQ%2FY9UOmTO6knQlZi6ySiPP%2BTpSRpsOrMCTf4KyfsFDMGpxJf%2FHcQjVts9k8%2F3zDXKIIGjS2hzrjmhZDZKTpofeAu9rjk5PJgEgv9mg3LJHf0Nu4pR%2Bk4dUx1wjOxTPoiQU0Q6m%2B7EJgawJHYMIsx1WChY2OsTvDD80x0PNuawhCXZWRJfYOatU%3D&u2=UIto4QCyfaiWyz2f&width=2560"
+          alt="sleeping panda"
+        />
+        <img
+          class="panda panda-right"
+          src="https://sspark.genspark.ai/cfimages?u1=8ejWnHilDpUNc14EfcSS%2FC%2FmVUtsHVgajTEwZ6OBcXQTpRnVwo730Hf%2BATSrgPzi8SZWxXjjVoNrWPfRzL3EeXLaX%2BIwjSTbPziKZZ569%2Fqi2xAqP5%2Fs1BwuYlE44VhdfptSajc%2Bxxw6kEIqh4WG%2BTPLe9mcUQxNTg%3D%3D&u2=BUBeHH7cjzW0fpsl&width=2560"
+          alt="panda with heart"
+        />
 
+        <div class="hero glass">
+          <span class="badge">For Shaw Shad ✨</span>
+          <h1>شەوێکی ئارام، خەوێکی شیرین</h1>
+          <p>
+            هەموو ستایلەکە بە شێوەی ئایفۆن و شەوی ڕەنگین درووست کراوە؛
+            بۆ ئەو کاتانەی دڵت دەیەوێت ئارام بێت و بە خۆشی بخەویت.
+          </p>
+        </div>
+
+        <div class="music-card glass">
+          <div class="music-cover-wrap">
+            <img
+              class="music-cover"
+              src="https://sspark.genspark.ai/cfimages?u1=lw957%2B%2FNihOQ3slbv1xxLV71DW%2FaoceqEgIRc7WjDptjJPrY3%2F1JQPcpp5ZpMzrl96toauWz3iBTdj275pZky49RHgvnwGUZ0LN3BrxYnIv5%2FANmXcSBLIC6GyZHT7MMvoOhvMPxRkeq7gx5geUi33G4b4S9qiSXcQ%3D%3D&u2=TPxJN4s5%2FEO6tNEu&width=2560"
+              alt="panda love"
+            />
+            <div class="cover-glow"></div>
+          </div>
+
+          <div class="music-meta">
+            <small>Now playing</small>
+            <h2>Shawt Shad Be</h2>
+            <p>Miran Ali • dreamy night mix</p>
+
+            <div class="wave-bars" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+
+            <div class="progress-wrap">
+              <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+              </div>
+              <div class="progress-time">
+                <span id="currentTime">00:00</span>
+                <span id="durationTime">00:34</span>
+              </div>
+            </div>
+
+            <div class="controls">
+              <button id="playBtn" class="play-btn" type="button">▶ شغّل الأغنية</button>
+              <button id="muteBtn" class="mini-btn" type="button">🔊</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lyric-card glass">
+          <span class="mini-title">شعر صغير قبل النوم</span>
+          <p id="lyricText">
+            لە شەوی نرمی تۆدا، مانگیش فێری ئارامی دەبێت،
+            دڵیش وەک پاندایەکی بچووک بە ئاسانی خەو دەکەوێت.
+          </p>
+        </div>
+
+        <div class="gallery">
+          <div class="gallery-card glass tilt">
+            <img src="https://sspark.genspark.ai/cfimages?u1=FZw2p4%2BVa7sbDp2WnX5Wis8x7pz3E%2BTTaeZXrcx%2F8m2WFsi60c4r7YR3yFbHFFFdyaCfotnp7MO3IHIai0wYKyAVfp1%2FFTWrNer%2BKQ68W4%2Ftk29h8ojeMpbMKGiB%2BnH47%2BJbBrZJlhFyHu4ES%2BwkG6EdZUFo4ela9%2FvGKL9%2FlA2N6rtm80Ad6TLcuBJ%2FgkeCGi5oqGTxzfbApCTA%2FSH2%2FPpDNQwrGltJPjejtbJbZDtQtVORNYLShIBpbthXDgvmAApgWO3jaTAuiEBPVThBF09AArDJrh6fZUfo2O3qrXLb0bqjSBWvXVWmu1lChuFkIQ3%2BMYK%2BK1CYvS0kxGj7eLe6hsX0hTIz7TOqHw%3D%3D&u2=GE7jMJYwwCc8LIKt&width=2560" alt="cute panda illustration">
+            <span>cute mood</span>
+          </div>
+          <div class="gallery-card glass lift">
+            <img src="https://sspark.genspark.ai/cfimages?u1=ajDHGARjYh954BtjuSZSMYavmjAa0Ub8prc%2FVSyFER%2FljAFfw2XM%2BY49QfmXP1Fx%2FM0AMzKXgrDhPx4hhnx7RKRyRB%2FCsxyM0wtogbnt2hTFrRMtwO%2Brovd%2BZpuxcPLr4SO9T0WKma2G8lM9VEsTBRSbPoPbZIFX%2FQXZ95%2BfQbc89g2DyBMNkr7rDg%3D%3D&u2=2lJq8haf9aO3BDPE&width=2560" alt="baby panda vector">
+            <span>soft panda</span>
+          </div>
+          <div class="gallery-card glass tilt reverse">
+            <img src="https://sspark.genspark.ai/cfimages?u1=lw957%2B%2FNihOQ3slbv1xxLV71DW%2FaoceqEgIRc7WjDptjJPrY3%2F1JQPcpp5ZpMzrl96toauWz3iBTdj275pZky49RHgvnwGUZ0LN3BrxYnIv5%2FANmXcSBLIC6GyZHT7MMvoOhvMPxRkeq7gx5geUi33G4b4S9qiSXcQ%3D%3D&u2=TPxJN4s5%2FEO6tNEu&width=2560" alt="panda flowers">
+            <span>sweet dreams</span>
+          </div>
+        </div>
+
+        <div class="goodnight glass">
+          <strong>رسالة ليلية:</strong>
+          <p>
+            إذا ما اشتغلتش الأغنية تلقائيًا، دوس مرة واحدة على زر التشغيل —
+            وبعدها هتشتغل معاك الصفحة بشكل كامل.
+          </p>
+        </div>
+
+        <div class="bottom-dock glass">
+          <span>☾</span>
+          <span>❤</span>
+          <span>✦</span>
+          <span>🐼</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <audio id="bgMusic" loop preload="metadata">
+    <source src="1000054361.mp4" type="audio/mp4" />
+    متصفحك لا يدعم تشغيل الصوت.
+  </audio>
+
+  <script>
+    const clock = document.getElementById('clock');
+    const music = document.getElementById('bgMusic');
+    const playBtn = document.getElementById('playBtn');
+    const muteBtn = document.getElementById('muteBtn');
+    const progressFill = document.getElementById('progressFill');
+    const currentTimeText = document.getElementById('currentTime');
+    const durationTime = document.getElementById('durationTime');
+    const lyricText = document.getElementById('lyricText');
+
+    const lyrics = [
+      'لە شەوی نرمی تۆدا، مانگیش فێری ئارامی دەبێت، دڵیش وەک پاندایەکی بچووک بە ئاسانی خەو دەکەوێت.',
+      'شەو باش، خۆشەویستم… ئەم شەوە ستێرەکان هەموویان بۆ خەوتنی تۆ دەدرەوشێنەوە.',
+      'ئەگەر خەو بێت گۆرانی، ئەوا دڵی تۆ نازدارترین ئاوازەی ئەم شەوەیە.',
+      'پاندای بچووک دەڵێت: خەوێکی شیرین، دڵێکی ئارام، و شەوێک پڕ لە خەندەی جوان.'
+    ];
+
+    let lyricIndex = 0;
+
+    function updateClock() {
+      const now = new Date();
+      clock.textContent = now.toLocaleTimeString('en-GB', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function formatTime(sec) {
+      if (!Number.isFinite(sec)) return '00:00';
+      const minutes = Math.floor(sec / 60).toString().padStart(2, '0');
+      const seconds = Math.floor(sec % 60).toString().padStart(2, '0');
+      return `${minutes}:${seconds}`;
+    }
+
+    function refreshProgress() {
+      const progress = music.duration ? (music.currentTime / music.duration) * 100 : 0;
+      progressFill.style.width = `${progress}%`;
+      currentTimeText.textContent = formatTime(music.currentTime);
+      durationTime.textContent = formatTime(music.duration || 34);
+    }
+
+    function rotateLyrics() {
+      lyricIndex = (lyricIndex + 1) % lyrics.length;
+      lyricText.classList.remove('show');
+      setTimeout(() => {
+        lyricText.textContent = lyrics[lyricIndex];
+        lyricText.classList.add('show');
+      }, 180);
+    }
+
+    async function toggleMusic() {
+      try {
+        if (music.paused) {
+          await music.play();
+          playBtn.textContent = '❚❚ إيقاف مؤقت';
+        } else {
+          music.pause();
+          playBtn.textContent = '▶ شغّل الأغنية';
+        }
+      } catch (err) {
+        playBtn.textContent = '▶ اضغط للتشغيل';
+      }
+    }
+
+    function toggleMute() {
+      music.muted = !music.muted;
+      muteBtn.textContent = music.muted ? '🔇' : '🔊';
+    }
+
+    playBtn.addEventListener('click', toggleMusic);
+    muteBtn.addEventListener('click', toggleMute);
+    music.addEventListener('timeupdate', refreshProgress);
+    music.addEventListener('loadedmetadata', refreshProgress);
+    music.addEventListener('ended', () => {
+      playBtn.textContent = '▶ شغّل الأغنية';
+    });
+
+    document.body.addEventListener('click', async () => {
+      if (music.paused) {
+        try {
+          await music.play();
+          playBtn.textContent = '❚❚ إيقاف مؤقت';
+        } catch (e) {}
+      }
+    }, { once: true });
+
+    updateClock();
+    setInterval(updateClock, 1000);
+    setInterval(rotateLyrics, 4500);
+    lyricText.classList.add('show');
+    refreshProgress();
+  </script>
 </body>
 </html>
