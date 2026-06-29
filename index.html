@@ -2,41 +2,54 @@
 <html lang="ckb" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>Love Captcha 💖</title>
 
 <style>
+
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+
   font-family:
   -apple-system,
   BlinkMacSystemFont,
+  "SF Pro Display",
   "Segoe UI",
   sans-serif;
-}
-
-body{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:15px;
-  overflow:hidden;
 
   background:
   linear-gradient(
     180deg,
-    #fdf5f8,
+    #fff7fa,
     #ffeef5
   );
 }
 
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
 .phone{
-  width:100%;
-  max-width:390px;
-  height:92vh;
+  width:100vw;
+  height:100dvh;
+  position:relative;
+  overflow:hidden;
 
   background:
   linear-gradient(
@@ -44,15 +57,20 @@ body{
     #fff,
     #fff7fb
   );
+}
 
-  border-radius:42px;
+@media (min-width:431px){
 
-  box-shadow:
-  0 20px 70px
-  rgba(255,182,193,.35);
+  .phone{
+    width:390px;
+    height:844px;
+    border-radius:42px;
 
-  overflow:hidden;
-  position:relative;
+    box-shadow:
+    0 30px 80px
+    rgba(255,182,193,.35);
+  }
+
 }
 
 .notch{
@@ -66,31 +84,31 @@ body{
 
   background:#111;
   border-radius:999px;
+  z-index:100;
 }
 
 .screen{
+  width:100%;
   height:100%;
   padding:
   70px
   18px
   20px;
 
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.captcha-shell{
-  width:100%;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
 }
 
 .card{
   background:#fff;
-  border-radius:24px;
+
+  border-radius:28px;
 
   box-shadow:
-  0 15px 40px
-  rgba(255,192,203,.18);
+  0 15px 50px
+  rgba(255,182,193,.18);
+
+  overflow:hidden;
 }
 
 .recaptcha{
@@ -100,58 +118,61 @@ body{
 .recaptcha-top{
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:15px;
 }
 
 .checkbox{
-  width:32px;
-  height:32px;
+  width:34px;
+  height:34px;
 
-  border:2px solid #bbb;
-  border-radius:8px;
+  border:
+  2px solid
+  #d4d4d4;
+
+  border-radius:10px;
+
+  display:grid;
+  place-items:center;
 
   flex-shrink:0;
   cursor:pointer;
 
-  display:grid;
-  place-items:center;
+  transition:.3s;
 }
 
 .checkbox.verified{
   background:#ff8fba;
   border-color:#ff8fba;
   color:#fff;
-  font-weight:bold;
+  font-size:20px;
+  font-weight:700;
 }
 
 .recaptcha-title{
   font-size:17px;
   color:#444;
+  line-height:1.7;
 }
 
 .challenge{
-  margin-top:16px;
   display:none;
+  margin-top:18px;
 }
 
 .challenge.show{
   display:block;
 }
-  .challenge-head{
+
+.challenge-head{
   background:
   linear-gradient(
     180deg,
-    #ffb7d2,
-    #ff90bb
+    #ffb5d2,
+    #ff8fba
   );
 
   color:#fff;
-  padding:16px;
-  border-radius:
-  20px
-  20px
-  0
-  0;
+  padding:18px;
 }
 
 .challenge-label{
@@ -160,135 +181,9 @@ body{
 }
 
 .challenge-title{
-  margin-top:5px;
+  margin-top:6px;
   font-size:20px;
-  font-weight:700;
-  line-height:1.5;
-}
-
-.challenge-body{
-  background:#fff;
-  border-radius:
-  0
-  0
-  20px
-  20px;
-
-  overflow:hidden;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:
-  repeat(3,1fr);
-
-  gap:10px;
-  padding:14px;
-}
-
-.tile{
-  aspect-ratio:1;
-  border-radius:18px;
-
-  background:
-  linear-gradient(
-    180deg,
-    #fff,
-    #fff5f9
-  );
-
-  border:2px solid #ffe0ec;
-
-  display:grid;
-  place-items:center;
-
-  font-size:38px;
-  cursor:pointer;
-  transition:.25s;
-}
-
-.tile.selected{
-  background:#ffd8e8;
-  border-color:#ff90bb;
-  transform:scale(.95);
-}
-
-.challenge-actions{
-  padding:14px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.challenge-note{
-  font-size:12px;
-  color:#999;
-}
-
-.verify-btn{
-  border:none;
-  border-radius:14px;
-
-  padding:
-  12px
-  22px;
-
-  background:
-  linear-gradient(
-    180deg,
-    #ff9fc6,
-    #ff7cad
-  );
-
-  color:#fff;
-  font-weight:700;
-}
-
-.letter-card{
-  display:none;
-
-  width:100%;
-  height:100%;
-
-  overflow:auto;
-}
-
-.letter-card.show{
-  display:block;
-}
-
-.letter-top{
-  text-align:center;
-  padding:20px;
-}
-
-.panda-image{
-  width:170px;
-  display:block;
-  margin:auto;
-}
-
-.hero-title{
-  margin-top:14px;
-  font-size:28px;
-  color:#d96b99;
-  font-weight:800;
-}
-
-.letter-scroll{
-  padding:24px;
-}
-
-.letter-text{
-  line-height:2.2;
-  color:#555;
-  white-space:pre-line;
-}
-
-.letter-sign{
-  text-align:center;
-  margin-top:24px;
-  color:#d96b99;
+  line-height:1.6;
   font-weight:700;
 }
   </style>
@@ -301,110 +196,126 @@ body{
 
   <div class="screen">
 
-    <div class="captcha-shell">
+    <div class="card recaptcha">
 
-      <div class="card recaptcha">
-
-        <div class="recaptcha-top">
-
-          <div
-            class="checkbox"
-            id="checkbox"
-          ></div>
-
-          <div
-            class="recaptcha-title"
-            id="mainTitle"
-          >
-            من ڕۆبۆت نیم، بەڵکو عاشقی تۆم 💖
-          </div>
-
-        </div>
+      <div class="recaptcha-top">
 
         <div
-          class="challenge"
-          id="challenge"
+          class="checkbox"
+          id="checkbox"
+        ></div>
+
+        <div
+          class="recaptcha-title"
+          id="mainTitle"
         >
-
-          <div class="challenge-head">
-            <div class="challenge-label">
-              هەڵبژاردن
-            </div>
-
-            <div class="challenge-title">
-              هەموو دڵەکان هەڵبژێرە 💖
-            </div>
-          </div>
-
-          <div class="challenge-body">
-
-            <div class="grid">
-
-              <div class="tile" data-index="0">🦋</div>
-              <div class="tile" data-index="1">💖</div>
-              <div class="tile" data-index="2">🌸</div>
-
-              <div class="tile" data-index="3">🎀</div>
-              <div class="tile" data-index="4">💗</div>
-              <div class="tile" data-index="5">🐼</div>
-
-              <div class="tile" data-index="6">☕</div>
-              <div class="tile" data-index="7">💕</div>
-              <div class="tile" data-index="8">🍓</div>
-
-            </div>
-
-            <div class="challenge-actions">
-
-              <div class="challenge-note">
-                Love Captcha
-              </div>
-
-              <button
-                class="verify-btn"
-                id="verifyBtn"
-              >
-                سەلماندن
-              </button>
-
-            </div>
-
-          </div>
-
+          من ڕۆبۆت نیم، بەڵکو عاشقی تۆم 💖
         </div>
 
       </div>
 
       <div
-        class="letter-card"
-        id="letterCard"
+        class="challenge"
+        id="challenge"
       >
 
-        <div class="letter-top">
+        <div class="challenge-head">
 
-          <img
-            class="panda-image"
-            src="panda.png"
+          <div class="challenge-label">
+            Love Captcha
+          </div>
+
+          <div class="challenge-title">
+            هەموو دڵەکان هەڵبژێرە 💖
+          </div>
+
+        </div>
+
+        <div class="grid">
+
+          <div class="tile" data-i="0">🦋</div>
+          <div class="tile" data-i="1">💖</div>
+          <div class="tile" data-i="2">🌸</div>
+
+          <div class="tile" data-i="3">🎀</div>
+          <div class="tile" data-i="4">💗</div>
+          <div class="tile" data-i="5">🐼</div>
+
+          <div class="tile" data-i="6">☕</div>
+          <div class="tile" data-i="7">💕</div>
+          <div class="tile" data-i="8">🍓</div>
+
+        </div>
+
+        <div class="challenge-actions">
+
+          <button
+            class="verify-btn"
+            id="verifyBtn"
           >
-
-          <div class="hero-title">
-            تاقانەکەی دڵم 💖
-          </div>
+            سەلماندن
+          </button>
 
         </div>
 
-        <div class="letter-scroll">
+      </div>
 
-          <div
-            class="letter-text"
-            id="letterText"
-          ></div>
+    </div>
 
-          <div class="letter-sign">
-            لەگەڵ هەموو خۆشەویستییەکم 💕
-          </div>
+    <div
+      class="card letter-card"
+      id="letterCard"
+      style="display:none;margin-top:20px;"
+    >
 
-        </div>
+      <div
+        style="
+        padding:28px;
+        text-align:center;
+        "
+      >
+
+        <img
+          src="panda.png"
+          style="
+          width:170px;
+          max-width:70%;
+          display:block;
+          margin:auto;
+          "
+        >
+
+        <h1
+          style="
+          color:#d86a97;
+          margin-top:20px;
+          "
+        >
+          تاقانەکەی دڵم 💖
+        </h1>
+
+      </div>
+
+      <div
+        style="
+        padding:0 25px 30px;
+        line-height:2.1;
+        color:#555;
+        "
+      >
+
+        تۆ بۆ من تەنها کەسێک نیت؛<br><br>
+
+        تۆ ئارامی دڵم و جوانترین بەشی ڕۆژەکانمی.<br><br>
+
+        بوونت لە ژیانمدا وەک ڕووناکییە لە شەوێکی ئارامدا،
+        وەک گەرماییە لە ڕۆژێکی سارددا.<br><br>
+
+        هەر شوێنێک بم،
+        دڵم هەر لەگەڵ تۆیە.<br><br>
+
+        خۆشمدەوێیت...
+        زیاتر لە هەموو وشەکان 💕
 
       </div>
 
@@ -415,8 +326,9 @@ body{
 </div>
 
 <audio
-  id="bgMusic"
+  id="music"
   loop
+  preload="auto"
 >
   <source
     src="https://cdn.discordapp.com/attachments/1181378994243911761/1521260476544323648/74896a2c015d8bd377bdf7770c465185.mp3"
@@ -446,14 +358,9 @@ document.getElementById(
 "letterCard"
 );
 
-const letterText =
+const music =
 document.getElementById(
-"letterText"
-);
-
-const bgMusic =
-document.getElementById(
-"bgMusic"
+"music"
 );
 
 const tiles =
@@ -469,35 +376,10 @@ new Set();
 const correct =
 [1,4,7];
 
-let verified =
-false;
-
-letterText.textContent =
-`
-تاقانەکەی دڵم 💖
-
-تۆ بۆ من تەنها کەسێک نیت،
-تۆ ئارامی دڵم و جوانترین بەشی ڕۆژەکانمی.
-
-بوونت لە ژیانمدا
-وەک ڕووناکییە لە شەوێکی ئارامدا،
-وەک گەرماییە لە ڕۆژێکی سارددا.
-
-هەر شوێنێک بم،
-دڵم هەر لەگەڵ تۆیە.
-
-خۆشمدەوێیت...
-زیاتر لە هەموو وشەکان. 💕
-`;
-
 checkbox.onclick =
 () => {
 
-if(verified)
-return;
-
-challenge.classList
-.toggle(
+challenge.classList.toggle(
 "show"
 );
 
@@ -509,12 +391,9 @@ tile => {
 tile.onclick =
 () => {
 
-if(verified)
-return;
-
 const i =
 Number(
-tile.dataset.index
+tile.dataset.i
 );
 
 if(
@@ -523,8 +402,7 @@ selected.has(i)
 
 selected.delete(i);
 
-tile.classList
-.remove(
+tile.classList.remove(
 "selected"
 );
 
@@ -532,8 +410,7 @@ tile.classList
 
 selected.add(i);
 
-tile.classList
-.add(
+tile.classList.add(
 "selected"
 );
 
@@ -544,12 +421,12 @@ tile.classList
 });
 
 verifyBtn.onclick =
-() => {
+async () => {
 
 const ok =
 correct.every(
-x =>
-selected.has(x)
+i =>
+selected.has(i)
 );
 
 if(
@@ -562,44 +439,30 @@ alert(
 return;
 }
 
-verified =
-true;
-
 checkbox.innerHTML =
 "✓";
 
-checkbox.classList
-.add(
+checkbox.classList.add(
 "verified"
 );
 
-challenge.classList
-.remove(
-"show"
-);
+challenge.style.display =
+"none";
 
-document
-.getElementById(
+document.getElementById(
 "mainTitle"
-)
-.textContent =
+).textContent =
 "سەلمێندرا بە سەرکەوتوویی 💖";
 
-setTimeout(
-() => {
+letterCard.style.display =
+"block";
 
-letterCard
-.classList
-.add(
-"show"
-);
-
-bgMusic.play()
-.catch(()=>{});
-
-},
-700
-);
+try{
+  music.volume = 0.7;
+  await music.play();
+}catch(e){
+  console.log(e);
+}
 
 };
 
