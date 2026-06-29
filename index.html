@@ -199,7 +199,7 @@
             border-radius: 8px;
         }
 
-        /* دیزاینی پلەیەری پڕۆفیشناڵ هاوشێوەی وێنەکەت */
+        /* دیزاینی پلەیەرەکەت لەم بەشەدایە */
         .music-player {
             background-color: var(--player-bg);
             border-radius: 16px;
@@ -207,8 +207,8 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            direction: ltr; /* بۆ ئەوەی شێوازی کاتەکە و دوگمەکان ڕێک وەک وێنەکە بن */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            direction: ltr;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .player-cover {
@@ -228,8 +228,8 @@
 
         .track-title {
             color: var(--player-text);
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: bold;
         }
 
         .time-controls {
@@ -237,13 +237,13 @@
             align-items: center;
             gap: 8px;
             width: 100%;
-            color: #2b3bb3;
-            font-size: 14px;
+            color: var(--player-text);
+            font-size: 13px;
         }
 
         .progress-bar-container {
             flex-grow: 1;
-            height: 4px;
+            height: 3px;
             background: #1a1b26;
             border-radius: 2px;
             position: relative;
@@ -260,7 +260,7 @@
         .player-buttons {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             color: var(--player-text);
         }
 
@@ -268,7 +268,7 @@
             background: none;
             border: none;
             color: var(--player-text);
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -276,7 +276,8 @@
         }
 
         .play-pause-btn {
-            font-size: 24px;
+            font-size: 22px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -309,7 +310,7 @@
             <div class="grid-cell" onclick="toggleCell(this)">🎀</div>
             <div class="grid-cell is-correct" onclick="toggleCell(this)">💜</div>
             <div class="grid-cell" onclick="toggleCell(this)">🐱</div>
-            <div class="grid-cell" onclick="toggleSelect(this)">☕</div>
+            <div class="grid-cell" onclick="toggleCell(this)">☕</div>
             <div class="grid-cell" onclick="toggleCell(this)">🍓</div>
             <div class="grid-cell is-correct" onclick="toggleCell(this)">💝</div>
         </div>
@@ -330,7 +331,7 @@
         <div class="music-player">
             <img src="1000054434.jpg" class="player-cover" alt="Cover">
             <div class="player-info">
-                <div class="track-title">خۆشەویستی من و تۆ</div>
+                <div class="track-title">Fuck Society</div>
                 <div class="time-controls">
                     <span id="currentTime">0:00</span>
                     <div class="progress-bar-container" onclick="seek(event)">
@@ -340,9 +341,9 @@
                 </div>
             </div>
             <div class="player-buttons">
-                <button class="control-btn">⏮</button>
+                <button class="control-btn">◀</button>
                 <button class="control-btn play-pause-btn" onclick="togglePlay()" id="playBtn">⏸</button>
-                <button class="control-btn">⏭</button>
+                <button class="control-btn">▶</button>
             </div>
         </div>
     </div>
@@ -373,15 +374,12 @@
         if (selectedCorrect === totalCorrect && selectedWrong === 0) {
             document.getElementById('step2').style.display = 'none';
             document.getElementById('step3').style.display = 'block';
-            
-            // دەستپێکردنی خۆکاری موزیک لە کاتی بەشی کۆتاییدا
-            audio.play().catch(e => console.log("لێدان پێویستی بە دەستکاری هەیە"));
+            audio.play().catch(e => console.log("Audio trigger required"));
         } else {
             alert('تکایە سەرجەم ئەو چوارگۆشانە هەڵبژێرە کە دڵیان تێدایە! 🥺');
         }
     }
 
-    // کۆنترۆڵکردنی پلەیەری موزیکەکە
     function togglePlay() {
         if (audio.paused) {
             audio.play();
@@ -396,7 +394,6 @@
         const progress = (audio.currentTime / audio.duration) * 100;
         progressBar.style.width = `${progress}%`;
         
-        // ڕێکخستنی کاتی ئێستا
         let currentMin = Math.floor(audio.currentTime / 60);
         let currentSec = Math.floor(audio.currentTime % 60);
         if(currentSec < 10) currentSec = '0' + currentSec;
