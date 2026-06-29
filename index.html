@@ -126,18 +126,12 @@
             user-select: none;
             border: 2px solid transparent;
             overflow: hidden;
-            font-size: 40px; /* بۆ ئایدی فۆنتەکان */
-        }
-
-        .grid-cell img {
-            width: 80%;
-            height: 80%;
-            object-fit: contain;
-            pointer-events: none;
+            font-size: 42px; /* گەورەکردنی قەبارەی ئیمۆجییەکان بۆ ئەوەی وەک وێنە دەرکەون */
         }
 
         .grid-cell.selected {
             border-color: var(--primary-color);
+            background: #e8f0fe;
         }
 
         .grid-cell.selected::after {
@@ -315,6 +309,7 @@
 
 <div class="captcha-container" id="mainContainer">
     
+    <!-- هەنگاوی یەکەم -->
     <div class="captcha-anchor" id="step1">
         <div class="anchor-content" onclick="openGrid()">
             <div class="anchor-checkbox" id="checkbox"></div>
@@ -326,36 +321,29 @@
         </div>
     </div>
 
+    <!-- هەنگاوی دووەم: بەکارهێنانی فۆنتی ئیمۆجی فەرمی بۆ دڵنیایی لە کارکردنی تەواو -->
     <div class="grid-window" id="step2">
         <div class="grid-header">
             <h3>هەموو ئەو چوارگۆشانە هەڵبژێرە کە</h3>
-            <strong>پاندا و نیشانەی خۆشەویستی تێدایە 🐼💗</strong>
+            <strong>پاندا و ورچۆنی تێدایە 🐼🐻💖</strong>
         </div>
         <div class="image-grid">
             <div class="grid-cell" onclick="toggleCell(this)">🌸</div>
-            
-            <div class="grid-cell is-correct" onclick="toggleCell(this)">
-                <svg viewBox="0 0 64 64" width="48" height="48"><circle cx="32" cy="36" r="22" fill="#fff" stroke="#000" stroke-width="3"/><circle cx="16" cy="18" r="8" fill="#222"/><circle cx="48" cy="18" r="8" fill="#222"/><ellipse cx="20" cy="32" rx="6" ry="8" fill="#222"/><ellipse cx="44" cy="32" rx="6" ry="8" fill="#222"/><circle cx="21" cy="30" r="2" fill="#fff"/><circle cx="43" cy="30" r="2" fill="#fff"/><polygon points="32,38 28,34 36,34" fill="#222"/><path d="M26 44 Q32 48 38 44" fill="none" stroke="#222" stroke-width="2"/><circle cx="14" cy="36" r="3" fill="#ffb6c1" opacity="0.6"/><circle cx="50" cy="36" r="3" fill="#ffb6c1" opacity="0.6"/></svg>
-            </div>
-            
+            <div class="grid-cell is-correct" onclick="toggleCell(this)">🐼</div> <!-- پاندای دروست -->
             <div class="grid-cell" onclick="toggleCell(this)">🦋</div>
             <div class="grid-cell" onclick="toggleCell(this)">🍓</div>
-            
-            <div class="grid-cell is-correct" onclick="toggleCell(this)">💝</div>
-            
+            <div class="grid-cell is-correct" onclick="toggleCell(this)">🐻</div> <!-- ورچی دروست -->
             <div class="grid-cell" onclick="toggleCell(this)">🎈</div>
             <div class="grid-cell" onclick="toggleCell(this)">🐱</div>
             <div class="grid-cell" onclick="toggleCell(this)">🎀</div>
-            
-            <div class="grid-cell is-correct" onclick="toggleCell(this)">
-                <svg viewBox="0 0 64 64" width="48" height="48"><circle cx="32" cy="36" r="22" fill="#fff" stroke="#000" stroke-width="3"/><circle cx="16" cy="18" r="8" fill="#222"/><circle cx="48" cy="18" r="8" fill="#222"/><ellipse cx="20" cy="32" rx="6" ry="8" fill="#222"/><ellipse cx="44" cy="32" rx="6" ry="8" fill="#222"/><polygon points="32,38 28,34 36,34" fill="#222"/><path d="M12 12 Q20 2 32 12" fill="none" stroke="#e91e63" stroke-width="3"/><path d="M32 44 C26 50, 38 50, 32 44" fill="#e91e63"/></svg>
-            </div>
+            <div class="grid-cell is-correct" onclick="toggleCell(this)">🐼</div> <!-- پاندای دروست ٢ -->
         </div>
         <div class="grid-footer">
             <button class="action-btn" onclick="verify()">سەلماندن</button>
         </div>
     </div>
 
+    <!-- هەنگاوی سێیەم -->
     <div class="success-window" id="step3">
         <div class="card-letter">
             <h2>تاقانەکەی دڵم! 💖</h2>
@@ -419,7 +407,7 @@
             startHeartRain();
             typeWriter();
         } else {
-            alert('تکایە سەرجەم ئەو چوارگۆشانە هەڵبژێرە کە وێنەی پاندا و نیشانەی خۆشەویستی تێدایە! 🥺❤️');
+            alert('تکایە سەرجەم ئەو چوارگۆشانە هەڵبژێرە کە وێنەی پاندا و ورچەکەی تێدایە! 🥺❤️');
         }
     }
 
@@ -433,7 +421,7 @@
     }
 
     function startHeartRain() {
-        const hearts = ['💖', '❤️', '💝', '🌸', '✨'];
+        const hearts = ['💖', '❤️', '💝', '🌸', '✨', '🐼', '🐻'];
         setInterval(() => {
             const heart = document.createElement('div');
             heart.classList.add('heart-fall');
