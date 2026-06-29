@@ -26,6 +26,7 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            overflow-x: hidden;
         }
 
         .captcha-container {
@@ -36,6 +37,8 @@
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             padding: 24px;
+            position: relative;
+            z-index: 10;
         }
 
         /* چێکبۆکسەکە */
@@ -100,7 +103,7 @@
         }
 
         .grid-header strong {
-            font-size: 22px;
+            font-size: 18px;
             display: block;
             margin-top: 4px;
         }
@@ -118,16 +121,22 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 36px;
             cursor: pointer;
             position: relative;
             user-select: none;
             border: 2px solid transparent;
+            overflow: hidden;
+        }
+
+        .grid-cell img {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+            pointer-events: none;
         }
 
         .grid-cell.selected {
             border-color: var(--primary-color);
-            opacity: 0.8;
         }
 
         .grid-cell.selected::after {
@@ -144,6 +153,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 5;
         }
 
         .grid-footer {
@@ -280,6 +290,22 @@
             font-size: 22px;
             font-weight: bold;
         }
+
+        /* بارانی دڵەکان */
+        .heart-fall {
+            position: fixed;
+            top: -20px;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
+        }
     </style>
 </head>
 <body>
@@ -302,18 +328,36 @@
     <div class="grid-window" id="step2">
         <div class="grid-header">
             <h3>هەموو ئەو چوارگۆشانە هەڵبژێرە کە</h3>
-            <strong>دڵی 💖 تێدایە</strong>
+            <strong>پاندا و ورچی خۆشەویستی تێدایە 🐼❤️🐻</strong>
         </div>
         <div class="image-grid">
-            <div class="grid-cell" onclick="toggleCell(this)">🦋</div>
-            <div class="grid-cell is-correct" onclick="toggleCell(this)">💖</div>
-            <div class="grid-cell" onclick="toggleCell(this)">🌸</div>
-            <div class="grid-cell" onclick="toggleCell(this)">🎀</div>
-            <div class="grid-cell is-correct" onclick="toggleCell(this)">💜</div>
-            <div class="grid-cell" onclick="toggleCell(this)">🐱</div>
-            <div class="grid-cell" onclick="toggleCell(this)">☕</div>
-            <div class="grid-cell" onclick="toggleCell(this)">🍓</div>
-            <div class="grid-cell is-correct" onclick="toggleCell(this)">💝</div>
+            <div class="grid-cell" onclick="toggleCell(this)">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f98b/512.webp" alt="Butterfly">
+            </div>
+            <div class="grid-cell is-correct" onclick="toggleCell(this)">
+                <img src="https://media.tenor.com/7b7X8Y8mJgYAAAAi/bubu-bubu-dudu.gif" alt="Panda Love">
+            </div>
+            <div class="grid-cell" onclick="toggleCell(this)">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f338/512.webp" alt="Flower">
+            </div>
+            <div class="grid-cell" onclick="toggleCell(this)">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f343/512.webp" alt="Leaf">
+            </div>
+            <div class="grid-cell is-correct" onclick="toggleCell(this)">
+                <img src="https://media.tenor.com/0v8U9f3w7vIAAAAi/mochi-peach.gif" alt="Bear Hug">
+            </div>
+            <div class="grid-cell" onclick="toggleCell(this)">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f341/512.webp" alt="Maple">
+            </div>
+            <div class="grid-cell" onclick="toggleCell(this)">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f36d/512.webp" alt="Candy">
+            </div>
+            <div class="grid-cell" onclick="toggleCell(this)">
+                <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f353/512.webp" alt="Strawberry">
+            </div>
+            <div class="grid-cell is-correct" onclick="toggleCell(this)">
+                <img src="https://media.tenor.com/K_shbQY8S_IAAAAi/peach-goma.gif" alt="Cute Panda">
+            </div>
         </div>
         <div class="grid-footer">
             <button class="action-btn" onclick="verify()">سەلماندن</button>
@@ -324,9 +368,7 @@
         <div class="card-letter">
             <h2>تاقانەکەی دڵم! 💖</h2>
             <img src="./IMG_20260626_051942.jpg" class="main-img" alt="SaqaW bm">
-            <p>
-                لەو ڕۆژەوەی هاتوویتە ژیانمەوە، هەموو شتێک جوانی و ئارامییەکی تایبەتی گرتووە! 🥺 تەنانەت بیرکردنەوەش لێت، زەردەخەنە دەخاتە سەر لێوەکانم. تۆ نەک هەر خۆشەویستمی، بەڵکوو ئارامیی ڕۆح و جوانترین ڕێکەوتی ژیانمی.
-            </p>
+            <p id="typedText"></p>
         </div>
 
         <div class="music-player">
@@ -357,6 +399,7 @@
     const progressBar = document.getElementById('progressBar');
     const currentTimeText = document.getElementById('currentTime');
     const durationText = document.getElementById('duration');
+    const fullText = "لەو ڕۆژەوەی هاتوویتە ژیانمەوە، هەموو شتێک جوانی و ئارامییەکی تایبەتی گرتووە! 🥺 تەنانەت بیرکردنەوەش لێت، زەردەخەنە دەخاتە سەر لێوەکانم. تۆ نەک هەر خۆشەویستمی، بەڵکوو ئارامیی ڕۆح و جوانترین ڕێکەوتی ژیانمی. 💕";
 
     function openGrid() {
         document.getElementById('step1').style.display = 'none';
@@ -376,14 +419,45 @@
             document.getElementById('step2').style.display = 'none';
             document.getElementById('step3').style.display = 'block';
             
-            // چاککردنی لۆدکردنی دەنگەکە پێش لێدان
             audio.load();
             setTimeout(() => {
-                audio.play().catch(e => console.log("گۆرانییەکە پێویستی بە کلیک هەیە"));
+                audio.play().catch(e => console.log("Play blocked"));
             }, 300);
+
+            // چالاککردنی بارانی دڵ و نووسینی نامەکە بە جوانی
+            startHeartRain();
+            typeWriter();
         } else {
-            alert('تکایە سەرجەم ئەو چوارگۆشانە هەڵبژێرە کە دڵیان تێدایە! 🥺');
+            alert('تکایە سەرجەم ئەو چوارگۆشانە هەڵبژێرە کە وێنەی پاندا و ورچەکەی تێدایە! 🥺❤️');
         }
+    }
+
+    // ئەنیمەیشنی نووسینی خودکار
+    let index = 0;
+    function typeWriter() {
+        if (index < fullText.length) {
+            document.getElementById("typedText").innerHTML += fullText.charAt(index);
+            index++;
+            setTimeout(typeWriter, 50);
+        }
+    }
+
+    // دروستکردنی بارانی دڵ
+    function startHeartRain() {
+        const hearts = ['💖', '❤️', '💝', '🌸', '🐻', '🐼'];
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-fall');
+            heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }, 300);
     }
 
     function togglePlay() {
