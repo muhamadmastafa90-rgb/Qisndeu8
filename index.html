@@ -2,12 +2,8 @@
 <html lang="ckb" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  />
-  <title>Love Captcha + Music Player</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Love Captcha</title>
   <style>
     :root{
       --bg1:#d8d0d3;
@@ -25,13 +21,6 @@
       --shadow:0 18px 60px rgba(0,0,0,.12);
       --radius:18px;
       --radius-sm:10px;
-
-      --player-bg:#090815;
-      --player-bg-2:#111126;
-      --player-neon:#392bff;
-      --player-neon-soft:rgba(57,43,255,.18);
-      --player-text:#c8c4ff;
-      --player-muted:#8a84d8;
     }
 
     *{box-sizing:border-box}
@@ -70,7 +59,7 @@
     .phone{
       position:relative;
       width:min(92vw, 392px);
-      height:min(94vh, 820px);
+      height:min(94vh, 790px);
       border-radius:38px;
       background:
         linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.45)),
@@ -115,259 +104,14 @@
       padding:54px 14px 16px;
       display:flex;
       flex-direction:column;
-      gap:12px;
-      overflow:hidden;
-    }
-
-    /* =========================
-       Music player
-    ========================= */
-    .music-player{
-      position:relative;
-      min-height:126px;
-      border-radius:30px;
-      overflow:hidden;
-      padding:16px;
-      background:
-        linear-gradient(180deg, rgba(15,14,34,.96), rgba(8,8,22,.96)),
-        linear-gradient(135deg, var(--player-bg), var(--player-bg-2));
-      box-shadow:
-        0 22px 44px rgba(0,0,0,.22),
-        inset 0 1px 0 rgba(255,255,255,.04);
-      color:var(--player-text);
-      flex:0 0 auto;
-    }
-
-    .music-player::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background-image:url("https://www.genspark.ai/api/files/s/Yz4JYLwQ");
-      background-size:cover;
-      background-position:center;
-      filter:blur(20px) saturate(1.2);
-      opacity:.18;
-      transform:scale(1.18);
-      pointer-events:none;
-    }
-
-    .music-player::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at 85% 20%, rgba(123,115,255,.18), transparent 28%),
-        linear-gradient(90deg, rgba(255,255,255,.02), rgba(255,255,255,0));
-      pointer-events:none;
-    }
-
-    .player-content{
-      position:relative;
-      z-index:1;
-      display:flex;
-      gap:14px;
-      align-items:center;
-      height:100%;
-    }
-
-    .cover{
-      width:96px;
-      height:96px;
-      border-radius:22px;
-      overflow:hidden;
-      flex:0 0 auto;
-      box-shadow:0 12px 26px rgba(0,0,0,.28);
-      border:1px solid rgba(255,255,255,.08);
-      background:#111;
-    }
-
-    .cover img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:17% 50%;
-      filter:grayscale(1) contrast(1.05);
-      display:block;
-    }
-
-    .player-main{
-      min-width:0;
-      flex:1;
-      display:flex;
-      flex-direction:column;
       justify-content:center;
-      gap:12px;
-    }
-
-    .track-title{
-      margin:0;
-      color:var(--player-neon);
-      font-size:17px;
-      font-weight:800;
-      letter-spacing:.2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      text-shadow:0 0 14px rgba(57,43,255,.28);
-    }
-
-    .progress-row{
-      display:grid;
-      grid-template-columns:46px 1fr 46px;
       align-items:center;
-      gap:10px;
+      gap:14px;
     }
-
-    .time{
-      font-size:12px;
-      color:var(--player-muted);
-      font-weight:700;
-      text-align:center;
-      font-variant-numeric:tabular-nums;
-    }
-
-    .progress{
-      position:relative;
-      height:6px;
-      border-radius:999px;
-      background:rgba(120,110,255,.16);
-      overflow:hidden;
-      cursor:pointer;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);
-    }
-
-    .progress-fill{
-      position:absolute;
-      inset:0 auto 0 0;
-      width:0%;
-      border-radius:999px;
-      background:linear-gradient(90deg, #5143ff, #7a71ff);
-      box-shadow:0 0 16px rgba(81,67,255,.38);
-    }
-
-    .controls{
-      display:flex;
-      align-items:center;
-      justify-content:flex-end;
-      gap:8px;
-    }
-
-    .player-btn{
-      border:none;
-      background:transparent;
-      color:var(--player-neon);
-      min-width:40px;
-      height:40px;
-      border-radius:14px;
-      display:grid;
-      place-items:center;
-      cursor:pointer;
-      transition:transform .18s ease, background .18s ease, box-shadow .18s ease;
-      font-size:18px;
-      font-weight:800;
-    }
-
-    .player-btn:hover{
-      transform:translateY(-1px);
-      background:rgba(57,43,255,.10);
-    }
-
-    .player-btn.main{
-      min-width:48px;
-      height:48px;
-      border-radius:16px;
-      background:linear-gradient(180deg, #4b3dff, #3123f0);
-      color:#fff;
-      box-shadow:
-        0 10px 24px rgba(57,43,255,.34),
-        0 0 18px rgba(57,43,255,.28);
-      font-size:20px;
-    }
-
-    .player-note{
-      position:absolute;
-      left:16px;
-      bottom:10px;
-      right:16px;
-      z-index:1;
-      font-size:11px;
-      color:rgba(200,196,255,.72);
-      text-align:center;
-      letter-spacing:.1px;
-    }
-
-    /* =========================
-       Typing box
-    ========================= */
-    .composer{
-      background:rgba(255,255,255,.72);
-      backdrop-filter:blur(12px);
-      border:1px solid rgba(255,255,255,.75);
-      border-radius:18px;
-      padding:12px;
-      box-shadow:0 10px 24px rgba(0,0,0,.06);
-      flex:0 0 auto;
-    }
-
-    .composer-label{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:8px;
-    }
-
-    .composer-label strong{
-      font-size:14px;
-      color:#4d5560;
-    }
-
-    .auto-play-chip{
-      font-size:11px;
-      color:#4f46e5;
-      background:rgba(79,70,229,.10);
-      padding:6px 10px;
-      border-radius:999px;
-      font-weight:700;
-      white-space:nowrap;
-    }
-
-    .composer textarea{
-      width:100%;
-      min-height:88px;
-      resize:none;
-      border:none;
-      outline:none;
-      background:#fff;
-      border-radius:14px;
-      padding:14px;
-      font:inherit;
-      line-height:1.9;
-      color:#2b2f33;
-      box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);
-    }
-
-    .composer textarea::placeholder{
-      color:#8b9097;
-    }
-
-    /* =========================
-       Captcha card
-    ========================= */
-    .scroll-area{
-      min-height:0;
-      flex:1 1 auto;
-      overflow:auto;
-      padding-bottom:8px;
-      scrollbar-width:none;
-    }
-
-    .scroll-area::-webkit-scrollbar{display:none;}
 
     .captcha-shell{
       width:100%;
       max-width:360px;
-      margin:0 auto;
       transition:transform .45s ease, opacity .45s ease;
     }
 
@@ -577,7 +321,6 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:10px;
       padding:10px 12px;
       background:#fff;
     }
@@ -608,9 +351,6 @@
       animation:shake .45s ease;
     }
 
-    /* =========================
-       Result letter
-    ========================= */
     .letter-wrap{
       position:absolute;
       inset:54px 14px 14px;
@@ -711,7 +451,6 @@
       padding:16px 18px 22px;
       scrollbar-width:none;
     }
-
     .letter-scroll::-webkit-scrollbar{display:none}
 
     .letter-text{
@@ -730,9 +469,6 @@
       text-align:center;
     }
 
-    /* =========================
-       Hearts
-    ========================= */
     .hearts{
       position:absolute;
       inset:0;
@@ -767,14 +503,6 @@
       color:rgba(0,0,0,.34);
       z-index:4;
       letter-spacing:.2px;
-    }
-
-    .hidden-video{
-      display:none;
-      width:0;
-      height:0;
-      opacity:0;
-      pointer-events:none;
     }
 
     @keyframes spin{
@@ -812,15 +540,6 @@
       .hero-emoji{ font-size:56px; }
       .hero-title{ font-size:22px; }
       .tile{ font-size:36px; }
-      .cover{
-        width:86px;
-        height:86px;
-        border-radius:20px;
-      }
-      .music-player{
-        min-height:118px;
-        padding:14px;
-      }
     }
   </style>
 </head>
@@ -830,119 +549,50 @@
 
     <div class="hearts" id="hearts"></div>
 
-    <!-- Hidden video used as audio source -->
-    <video
-      id="audioSource"
-      class="hidden-video"
-      preload="metadata"
-      playsinline
-      webkit-playsinline
-      crossorigin="anonymous"
-    >
-      <source src="https://www.genspark.ai/api/files/s/pclM5L4Y" type="video/mp4" />
-    </video>
-
     <div class="screen">
-      <!-- Music Player -->
-      <div class="music-player">
-        <div class="player-content">
-          <div class="cover">
-            <img
-              src="https://www.genspark.ai/api/files/s/Yz4JYLwQ"
-              alt="cover"
-            />
+      <div class="captcha-shell" id="captchaShell">
+        <div class="card recaptcha" id="recaptchaCard">
+          <div class="checkbox" id="checkbox" aria-label="checkbox"></div>
+
+          <div class="recaptcha-main">
+            <div class="recaptcha-title" id="mainTitle">من ڕۆبۆت نیم، بەڵکو عاشقی تۆم 💖</div>
           </div>
 
-          <div class="player-main">
-            <h3 class="track-title" id="trackTitle">Fuck Socity</h3>
-
-            <div class="progress-row">
-              <div class="time" id="currentTime">0:00</div>
-
-              <div class="progress" id="progressBar" aria-label="progress">
-                <div class="progress-fill" id="progressFill"></div>
-              </div>
-
-              <div class="time" id="durationTime">0:00</div>
-            </div>
-
-            <div class="controls">
-              <button class="player-btn" id="prevBtn" type="button" aria-label="back 10 seconds">⏮</button>
-              <button class="player-btn main" id="playPauseBtn" type="button" aria-label="play pause">▶</button>
-              <button class="player-btn" id="nextBtn" type="button" aria-label="forward 10 seconds">⏭</button>
-            </div>
+          <div class="recaptcha-side">
+            <div class="logo">✓</div>
+            <div>reCAPTCHA</div>
+            <div>Privacy - Terms</div>
           </div>
         </div>
 
-        <div class="player-note">
-          هەر کاتێک بچیتە ناو خانەی نووسین، گۆرانیەکە دەست پێ دەکات 🎵
-        </div>
-      </div>
-
-      <!-- Typing area -->
-      <div class="composer">
-        <div class="composer-label">
-          <strong>نامەی خۆت بنووسە</strong>
-          <span class="auto-play-chip">Auto music on typing</span>
-        </div>
-
-        <textarea
-          id="loveInput"
-          placeholder="کاتێک لێرە کلیک بکەیت یان دەست بە نووسین بکەیت، گۆرانیەکە دەست پێ دەکات..."
-        ></textarea>
-      </div>
-
-      <!-- Scrollable content -->
-      <div class="scroll-area">
-        <div class="captcha-shell" id="captchaShell">
-          <div class="card recaptcha" id="recaptchaCard">
-            <div class="checkbox" id="checkbox" aria-label="checkbox"></div>
-
-            <div class="recaptcha-main">
-              <div class="recaptcha-title" id="mainTitle">
-                من ڕۆبۆت نیم، بەڵکو عاشقی تۆم 💖
-              </div>
-            </div>
-
-            <div class="recaptcha-side">
-              <div class="logo">✓</div>
-              <div>reCAPTCHA</div>
-              <div>Privacy - Terms</div>
-            </div>
+        <div class="challenge" id="challenge">
+          <div class="challenge-head">
+            <div class="challenge-label">هەڵبژاردن</div>
+            <div class="challenge-title">هەموو ئەو چوارگۆشانە هەڵبژێرە کە دڵی 💖 تێدایە</div>
           </div>
 
-          <div class="challenge" id="challenge">
-            <div class="challenge-head">
-              <div class="challenge-label">هەڵبژاردن</div>
-              <div class="challenge-title">
-                هەموو ئەو چوارگۆشانە هەڵبژێرە کە دڵی 💖 تێدایە
-              </div>
+          <div class="challenge-body">
+            <div class="grid" id="grid">
+              <div class="tile" data-index="0">🦋</div>
+              <div class="tile" data-index="1">💖</div>
+              <div class="tile" data-index="2">🌸</div>
+              <div class="tile" data-index="3">🎀</div>
+              <div class="tile" data-index="4">💗</div>
+              <div class="tile" data-index="5">🐱</div>
+              <div class="tile" data-index="6">☕️</div>
+              <div class="tile" data-index="7">🍓</div>
+              <div class="tile" data-index="8">💕</div>
             </div>
 
-            <div class="challenge-body">
-              <div class="grid" id="grid">
-                <div class="tile" data-index="0">🦋</div>
-                <div class="tile" data-index="1">💖</div>
-                <div class="tile" data-index="2">🌸</div>
-                <div class="tile" data-index="3">🎀</div>
-                <div class="tile" data-index="4">💗</div>
-                <div class="tile" data-index="5">🐱</div>
-                <div class="tile" data-index="6">☕️</div>
-                <div class="tile" data-index="7">🍓</div>
-                <div class="tile" data-index="8">💕</div>
-              </div>
-
-              <div class="challenge-actions">
-                <div class="challenge-note">Neon player + Kurdish love captcha</div>
-                <button class="verify-btn" id="verifyBtn" type="button">سەلماندن</button>
-              </div>
+            <div class="challenge-actions">
+              <div class="challenge-note">Apple-style mobile love captcha</div>
+              <button class="verify-btn" id="verifyBtn">سەلماندن</button>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Letter result -->
     <div class="letter-wrap">
       <div class="letter-card" id="letterCard">
         <div class="letter-top">
@@ -965,14 +615,21 @@
       </div>
     </div>
 
-    <div class="footer-hint">Made with love • neon player • Kurdish UI</div>
+    <div class="footer-hint">Made with love • iPhone style • Kurdish UI</div>
   </div>
 
   <script>
-    /* =========================
-       Config
-    ========================= */
-    const DEFAULT_MESSAGE = `
+    const checkbox = document.getElementById("checkbox");
+    const challenge = document.getElementById("challenge");
+    const verifyBtn = document.getElementById("verifyBtn");
+    const captchaShell = document.getElementById("captchaShell");
+    const letterCard = document.getElementById("letterCard");
+    const hearts = document.getElementById("hearts");
+    const letterText = document.getElementById("letterText");
+    const gridTiles = [...document.querySelectorAll(".tile")];
+
+    // ئەگەر دەتەوێ تێکستی خۆت دابنێیت، تەنها ئەم بەشە بگۆڕە
+    const LETTER_MESSAGE = `
 تاقانەکەی دڵم! 💖
 
 تۆ بۆ من تەنها کەسێک نیت؛
@@ -1003,46 +660,15 @@
 بەڵکو زیاتر و زیاتر دەبێت. 💕
     `.trim();
 
-    /* =========================
-       Elements
-    ========================= */
-    const checkbox = document.getElementById("checkbox");
-    const challenge = document.getElementById("challenge");
-    const verifyBtn = document.getElementById("verifyBtn");
-    const captchaShell = document.getElementById("captchaShell");
-    const letterCard = document.getElementById("letterCard");
-    const hearts = document.getElementById("hearts");
-    const letterText = document.getElementById("letterText");
-    const gridTiles = [...document.querySelectorAll(".tile")];
-    const loveInput = document.getElementById("loveInput");
+    letterText.textContent = LETTER_MESSAGE;
 
-    // Music player
-    const media = document.getElementById("audioSource");
-    const playPauseBtn = document.getElementById("playPauseBtn");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    const currentTimeEl = document.getElementById("currentTime");
-    const durationTimeEl = document.getElementById("durationTime");
-    const progressBar = document.getElementById("progressBar");
-    const progressFill = document.getElementById("progressFill");
-
-    /* =========================
-       Initial content
-    ========================= */
-    loveInput.value = DEFAULT_MESSAGE;
-    letterText.textContent = DEFAULT_MESSAGE;
-
-    /* =========================
-       Captcha logic
-    ========================= */
-    const CORRECT_SELECTION = [1, 4, 8];
+    const CORRECT_SELECTION = [1, 4, 8]; // top-middle, center, bottom-right
     const selected = new Set();
     let challengeOpened = false;
     let verified = false;
 
     function openChallenge() {
       if (challengeOpened || verified) return;
-
       challengeOpened = true;
       checkbox.classList.add("loading");
 
@@ -1054,7 +680,6 @@
 
     function toggleTile(tile) {
       if (verified) return;
-
       const index = Number(tile.dataset.index);
 
       if (selected.has(index)) {
@@ -1074,7 +699,6 @@
     function spawnHearts() {
       hearts.innerHTML = "";
       const emojis = ["💖","💕","💗","💓","💞","💘","💝","✨"];
-
       for (let i = 0; i < 24; i++) {
         const heart = document.createElement("div");
         heart.className = "heart";
@@ -1085,7 +709,6 @@
         heart.style.setProperty("--delay", `${Math.random() * 4}s`);
         hearts.appendChild(heart);
       }
-
       hearts.classList.add("show");
     }
 
@@ -1103,6 +726,7 @@
       checkbox.classList.add("verified");
       captchaShell.classList.add("done");
       challenge.classList.remove("show");
+
       document.getElementById("mainTitle").textContent = "سەلمێندرا بە سەرکەوتوویی 💖";
 
       setTimeout(() => {
@@ -1131,134 +755,6 @@
         failAnimation();
       }
     });
-
-    /* =========================
-       Live update text
-    ========================= */
-    function syncLetterText() {
-      const value = loveInput.value.trim();
-      letterText.textContent = value || DEFAULT_MESSAGE;
-    }
-
-    loveInput.addEventListener("input", syncLetterText);
-
-    /* =========================
-       Music Player Logic
-    ========================= */
-    function formatTime(seconds) {
-      if (!isFinite(seconds) || seconds < 0) return "0:00";
-      const mins = Math.floor(seconds / 60);
-      const secs = Math.floor(seconds % 60);
-      return `${mins}:${String(secs).padStart(2, "0")}`;
-    }
-
-    function updateTimes() {
-      currentTimeEl.textContent = formatTime(media.currentTime || 0);
-      durationTimeEl.textContent = formatTime(media.duration || 0);
-
-      const progress = media.duration
-        ? (media.currentTime / media.duration) * 100
-        : 0;
-
-      progressFill.style.width = `${progress}%`;
-    }
-
-    function updatePlayButton() {
-      playPauseBtn.textContent = media.paused ? "▶" : "❚❚";
-    }
-
-    async function safePlay() {
-      try {
-        await media.play();
-        updatePlayButton();
-      } catch (err) {
-        // Browser may block autoplay until user interaction.
-        // Focusing textarea/clicking buttons usually counts as user interaction.
-        console.warn("Playback blocked until user interaction.", err);
-      }
-    }
-
-    function togglePlayPause() {
-      if (media.paused) {
-        safePlay();
-      } else {
-        media.pause();
-        updatePlayButton();
-      }
-    }
-
-    function seekBy(seconds) {
-      if (!isFinite(media.duration)) return;
-      media.currentTime = Math.min(
-        Math.max((media.currentTime || 0) + seconds, 0),
-        media.duration
-      );
-      updateTimes();
-    }
-
-    function seekTo(clientX) {
-      const rect = progressBar.getBoundingClientRect();
-      const ratio = Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1);
-
-      if (isFinite(media.duration)) {
-        media.currentTime = ratio * media.duration;
-        updateTimes();
-      }
-    }
-
-    media.addEventListener("loadedmetadata", updateTimes);
-    media.addEventListener("timeupdate", updateTimes);
-    media.addEventListener("play", updatePlayButton);
-    media.addEventListener("pause", updatePlayButton);
-    media.addEventListener("ended", () => {
-      media.currentTime = 0;
-      updateTimes();
-      updatePlayButton();
-    });
-
-    playPauseBtn.addEventListener("click", togglePlayPause);
-    prevBtn.addEventListener("click", () => seekBy(-10));
-    nextBtn.addEventListener("click", () => seekBy(10));
-
-    progressBar.addEventListener("click", (e) => {
-      seekTo(e.clientX);
-    });
-
-    /* =========================
-       Auto start music when entering text fields
-    ========================= */
-    function bindAutoMusicOnTextEntry() {
-      const triggerSelector = "input, textarea, [contenteditable='true']";
-
-      document.addEventListener("focusin", (e) => {
-        const target = e.target;
-        if (target && target.matches(triggerSelector)) {
-          safePlay();
-        }
-      });
-
-      document.addEventListener("input", (e) => {
-        const target = e.target;
-        if (target && target.matches(triggerSelector) && media.paused) {
-          safePlay();
-        }
-      });
-    }
-
-    bindAutoMusicOnTextEntry();
-    updateTimes();
-    updatePlayButton();
-
-    /* Optional:
-       لو دەتەوێت هەر کلیکێک لەسەر پەیجیش موسیقا دەست پێ بکات، ئەم بەشە بمێنە:
-    */
-    document.addEventListener(
-      "click",
-      () => {
-        if (media.paused) safePlay();
-      },
-      { once: true }
-    );
   </script>
 </body>
 </html>
