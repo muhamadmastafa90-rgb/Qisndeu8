@@ -2,11 +2,7 @@
 <html lang="ckb" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
-/>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Love Captcha 💖</title>
 
 <style>
@@ -14,193 +10,128 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
   font-family:
   -apple-system,
   BlinkMacSystemFont,
-  "SF Pro Display",
   "Segoe UI",
   sans-serif;
 }
 
-:root{
-  --pink:#ff93bc;
-  --pink2:#ffd9e8;
-  --white:#ffffff;
-  --text:#444;
-}
-
-html,
 body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
-}
-
-body{
+  min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
+  padding:15px;
+  overflow:hidden;
 
   background:
-  radial-gradient(
-    circle at top,
-    #ffe6f0,
-    #f7eef8 45%,
-    #edf1ff
+  linear-gradient(
+    180deg,
+    #fdf5f8,
+    #ffeef5
   );
 }
 
 .phone{
   width:100%;
   max-width:390px;
-  height:100dvh;
-  max-height:844px;
-
-  position:relative;
-  overflow:hidden;
-
-  border-radius:38px;
+  height:92vh;
 
   background:
   linear-gradient(
     180deg,
-    rgba(255,255,255,.88),
-    rgba(255,255,255,.68)
+    #fff,
+    #fff7fb
   );
 
-  backdrop-filter:blur(22px);
+  border-radius:42px;
 
   box-shadow:
-  0 25px 80px
-  rgba(0,0,0,.15);
+  0 20px 70px
+  rgba(255,182,193,.35);
+
+  overflow:hidden;
+  position:relative;
 }
 
 .notch{
-  width:120px;
-  height:30px;
-
-  background:#111;
-
-  border-radius:999px;
-
   position:absolute;
-  top:10px;
+  top:14px;
   left:50%;
   transform:translateX(-50%);
-  z-index:50;
+
+  width:135px;
+  height:32px;
+
+  background:#111;
+  border-radius:999px;
 }
 
 .screen{
-  width:100%;
   height:100%;
-
-  overflow-y:auto;
-  overflow-x:hidden;
-
   padding:
-  55px
-  14px
+  70px
+  18px
   20px;
-}
 
-.screen::-webkit-scrollbar{
-  display:none;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .captcha-shell{
   width:100%;
-  max-width:350px;
-  margin:auto;
 }
 
 .card{
   background:#fff;
-  border-radius:22px;
-  border:1px solid #f1f1f1;
+  border-radius:24px;
 
   box-shadow:
-  0 12px 35px
-  rgba(0,0,0,.08);
+  0 15px 40px
+  rgba(255,192,203,.18);
 }
 
 .recaptcha{
+  padding:20px;
+}
+
+.recaptcha-top{
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:18px;
+  gap:14px;
 }
 
 .checkbox{
   width:32px;
   height:32px;
+
+  border:2px solid #bbb;
   border-radius:8px;
-  border:2px solid #9aa0a6;
-  cursor:pointer;
+
   flex-shrink:0;
+  cursor:pointer;
+
+  display:grid;
+  place-items:center;
 }
 
 .checkbox.verified{
-  background:#34c759;
-  border-color:#34c759;
-  position:relative;
-}
-
-.checkbox.verified::before{
-  content:"✓";
+  background:#ff8fba;
+  border-color:#ff8fba;
   color:#fff;
-  font-size:20px;
-  font-weight:900;
-
-  position:absolute;
-  inset:0;
-
-  display:grid;
-  place-items:center;
-}
-
-.recaptcha-main{
-  flex:1;
+  font-weight:bold;
 }
 
 .recaptcha-title{
-  font-size:16px;
-  color:#222;
-  line-height:1.6;
-}
-
-.recaptcha-side{
-  text-align:center;
-  font-size:10px;
-  color:#888;
-}
-
-.logo{
-  width:34px;
-  height:34px;
-
-  border-radius:50%;
-
-  display:grid;
-  place-items:center;
-
-  margin:auto auto 5px;
-
-  background:
-  conic-gradient(
-    #4285f4,
-    #34a853,
-    #fbbc05,
-    #ea4335,
-    #4285f4
-  );
-
-  color:#fff;
+  font-size:17px;
+  color:#444;
 }
 
 .challenge{
+  margin-top:16px;
   display:none;
-  margin-top:14px;
 }
 
 .challenge.show{
@@ -210,15 +141,15 @@ body{
   background:
   linear-gradient(
     180deg,
-    #ff9dc4,
-    #ff7daf
+    #ffb7d2,
+    #ff90bb
   );
 
   color:#fff;
   padding:16px;
   border-radius:
-  22px
-  22px
+  20px
+  20px
   0
   0;
 }
@@ -226,10 +157,10 @@ body{
 .challenge-label{
   font-size:13px;
   opacity:.9;
-  margin-bottom:5px;
 }
 
 .challenge-title{
+  margin-top:5px;
   font-size:20px;
   font-weight:700;
   line-height:1.5;
@@ -240,8 +171,8 @@ body{
   border-radius:
   0
   0
-  22px
-  22px;
+  20px
+  20px;
 
   overflow:hidden;
 }
@@ -263,39 +194,35 @@ body{
   linear-gradient(
     180deg,
     #fff,
-    #fff6fa
+    #fff5f9
   );
 
-  border:2px solid #f6d9e6;
+  border:2px solid #ffe0ec;
 
   display:grid;
   place-items:center;
 
   font-size:38px;
   cursor:pointer;
-
   transition:.25s;
 }
 
 .tile.selected{
-  border-color:#ff86b4;
-
-  background:
-  linear-gradient(
-    180deg,
-    #ffe3ef,
-    #ffd6e8
-  );
-
+  background:#ffd8e8;
+  border-color:#ff90bb;
   transform:scale(.95);
 }
 
 .challenge-actions{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
   padding:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.challenge-note{
+  font-size:12px;
+  color:#999;
 }
 
 .verify-btn{
@@ -304,196 +231,65 @@ body{
 
   padding:
   12px
-  24px;
+  22px;
 
   background:
   linear-gradient(
     180deg,
-    #ff9dc4,
-    #ff78ad
+    #ff9fc6,
+    #ff7cad
   );
 
   color:#fff;
-  font-size:15px;
   font-weight:700;
 }
 
-.letter-wrap{
-  position:absolute;
-  inset:
-  55px
-  12px
-  12px;
-
-  display:flex;
-  justify-content:center;
-  align-items:flex-end;
-
-  pointer-events:none;
-}
-
 .letter-card{
+  display:none;
+
   width:100%;
-  max-width:350px;
-  max-height:78vh;
+  height:100%;
 
   overflow:auto;
-
-  background:
-  rgba(255,255,255,.96);
-
-  border-radius:30px;
-
-  box-shadow:
-  0 20px 60px
-  rgba(255,182,193,.25);
-
-  opacity:0;
-
-  transform:
-  translateY(60px)
-  scale(.96);
-
-  transition:.7s;
-
-  pointer-events:auto;
 }
 
 .letter-card.show{
-  opacity:1;
-
-  transform:
-  translateY(0)
-  scale(1);
+  display:block;
 }
 
 .letter-top{
-  padding:22px;
   text-align:center;
-
-  background:
-  linear-gradient(
-    135deg,
-    #ffe7f0,
-    #fff8fb,
-    #f4f8ff
-  );
+  padding:20px;
 }
 
 .panda-image{
-  width:150px;
+  width:170px;
   display:block;
   margin:auto;
 }
 
 .hero-title{
-  margin-top:12px;
-  font-size:25px;
+  margin-top:14px;
+  font-size:28px;
+  color:#d96b99;
   font-weight:800;
-  color:#7a5363;
 }
 
 .letter-scroll{
-  padding:22px;
+  padding:24px;
 }
 
 .letter-text{
-  white-space:pre-line;
-  line-height:2.1;
+  line-height:2.2;
   color:#555;
+  white-space:pre-line;
 }
 
 .letter-sign{
   text-align:center;
-  margin-top:20px;
-
-  color:#d46b96;
-  font-weight:700;
-}
-
-.music-player{
   margin-top:24px;
-
-  background:
-  rgba(255,235,243,.92);
-
-  border:1px solid
-  rgba(255,182,193,.3);
-
-  border-radius:22px;
-
-  padding:14px;
-
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.music-cover{
-  width:58px;
-  height:58px;
-
-  border-radius:18px;
-
-  background:
-  linear-gradient(
-    135deg,
-    #ffd6e5,
-    #fff
-  );
-
-  display:grid;
-  place-items:center;
-
-  font-size:28px;
-}
-
-.music-info{
-  flex:1;
-}
-
-.music-title{
+  color:#d96b99;
   font-weight:700;
-  color:#cf7299;
-  margin-bottom:8px;
-}
-
-.music-bar{
-  height:6px;
-  background:#ffd9e8;
-  border-radius:999px;
-  overflow:hidden;
-}
-
-.music-progress{
-  width:0%;
-  height:100%;
-
-  background:
-  linear-gradient(
-    90deg,
-    #ff9ec5,
-    #ff79af
-  );
-}
-
-.music-btn{
-  border:none;
-
-  width:50px;
-  height:50px;
-
-  border-radius:50%;
-
-  background:
-  linear-gradient(
-    180deg,
-    #ffc0d8,
-    #ff90bb
-  );
-
-  color:#fff;
-  font-size:18px;
 }
   </style>
 </head>
@@ -507,19 +303,119 @@ body{
 
     <div class="captcha-shell">
 
-      <!-- ئەم شوێنە هەمان HTML ـی بەشی ١ و ٢ دابنێ -->
+      <div class="card recaptcha">
+
+        <div class="recaptcha-top">
+
+          <div
+            class="checkbox"
+            id="checkbox"
+          ></div>
+
+          <div
+            class="recaptcha-title"
+            id="mainTitle"
+          >
+            من ڕۆبۆت نیم، بەڵکو عاشقی تۆم 💖
+          </div>
+
+        </div>
+
+        <div
+          class="challenge"
+          id="challenge"
+        >
+
+          <div class="challenge-head">
+            <div class="challenge-label">
+              هەڵبژاردن
+            </div>
+
+            <div class="challenge-title">
+              هەموو دڵەکان هەڵبژێرە 💖
+            </div>
+          </div>
+
+          <div class="challenge-body">
+
+            <div class="grid">
+
+              <div class="tile" data-index="0">🦋</div>
+              <div class="tile" data-index="1">💖</div>
+              <div class="tile" data-index="2">🌸</div>
+
+              <div class="tile" data-index="3">🎀</div>
+              <div class="tile" data-index="4">💗</div>
+              <div class="tile" data-index="5">🐼</div>
+
+              <div class="tile" data-index="6">☕</div>
+              <div class="tile" data-index="7">💕</div>
+              <div class="tile" data-index="8">🍓</div>
+
+            </div>
+
+            <div class="challenge-actions">
+
+              <div class="challenge-note">
+                Love Captcha
+              </div>
+
+              <button
+                class="verify-btn"
+                id="verifyBtn"
+              >
+                سەلماندن
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        class="letter-card"
+        id="letterCard"
+      >
+
+        <div class="letter-top">
+
+          <img
+            class="panda-image"
+            src="panda.png"
+          >
+
+          <div class="hero-title">
+            تاقانەکەی دڵم 💖
+          </div>
+
+        </div>
+
+        <div class="letter-scroll">
+
+          <div
+            class="letter-text"
+            id="letterText"
+          ></div>
+
+          <div class="letter-sign">
+            لەگەڵ هەموو خۆشەویستییەکم 💕
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 
   </div>
 
-  <div class="hearts" id="hearts"></div>
-
 </div>
 
 <audio
   id="bgMusic"
-  preload="auto"
   loop
 >
   <source
@@ -560,21 +456,6 @@ document.getElementById(
 "bgMusic"
 );
 
-const playBtn =
-document.getElementById(
-"playBtn"
-);
-
-const musicProgress =
-document.getElementById(
-"musicProgress"
-);
-
-const musicPlayer =
-document.getElementById(
-"musicPlayer"
-);
-
 const tiles =
 [
 ...document.querySelectorAll(
@@ -595,13 +476,12 @@ letterText.textContent =
 `
 تاقانەکەی دڵم 💖
 
-تۆ وەک مانگێکی جوانی ناو شەوەکانی منیت،
-وەک گوڵێک لە باخچەی دڵم.
+تۆ بۆ من تەنها کەسێک نیت،
+تۆ ئارامی دڵم و جوانترین بەشی ڕۆژەکانمی.
 
-بوونت لەگەڵمدا
-هەموو شتێک جوانتر دەکات،
-خەندەکانم زیاتر دەکات،
-و دڵم ئارامتر دەکات.
+بوونت لە ژیانمدا
+وەک ڕووناکییە لە شەوێکی ئارامدا،
+وەک گەرماییە لە ڕۆژێکی سارددا.
 
 هەر شوێنێک بم،
 دڵم هەر لەگەڵ تۆیە.
@@ -617,7 +497,9 @@ if(verified)
 return;
 
 challenge.classList
-.toggle("show");
+.toggle(
+"show"
+);
 
 };
 
@@ -664,21 +546,27 @@ tile.classList
 verifyBtn.onclick =
 () => {
 
-if(
-selected.size !== 3
-)
-return;
-
 const ok =
 correct.every(
 x =>
 selected.has(x)
 );
 
-if(!ok)
+if(
+selected.size !== 3 ||
+!ok
+){
+alert(
+"تەنها دڵەکان هەڵبژێرە 💖"
+);
 return;
+}
 
-verified = true;
+verified =
+true;
+
+checkbox.innerHTML =
+"✓";
 
 checkbox.classList
 .add(
@@ -697,18 +585,10 @@ document
 .textContent =
 "سەلمێندرا بە سەرکەوتوویی 💖";
 
-spawnHearts();
-
 setTimeout(
 () => {
 
 letterCard
-.classList
-.add(
-"show"
-);
-
-musicPlayer
 .classList
 .add(
 "show"
@@ -723,145 +603,7 @@ bgMusic.play()
 
 };
 
-function spawnHearts(){
-
-const hearts =
-document.getElementById(
-"hearts"
-);
-
-for(
-let i=0;
-i<35;
-i++
-){
-
-const h =
-document.createElement(
-"div"
-);
-
-h.innerHTML =
-[
-"💖",
-"💕",
-"💗",
-"✨",
-"🌸"
-][
-Math.floor(
-Math.random()*5
-)
-];
-
-h.style.position =
-"absolute";
-
-h.style.left =
-Math.random()*100
-+"%";
-
-h.style.top =
-Math.random()*100
-+"%";
-
-h.style.fontSize =
-(
-20+
-Math.random()*18
-)+"px";
-
-h.style.animation =
-"float 6s linear infinite";
-
-hearts.appendChild(
-h
-);
-
-}
-
-}
-
-playBtn.onclick =
-() => {
-
-if(
-bgMusic.paused
-){
-
-bgMusic.play();
-
-playBtn.innerHTML =
-"❚❚";
-
-}else{
-
-bgMusic.pause();
-
-playBtn.innerHTML =
-"▶";
-
-}
-
-};
-
-bgMusic.addEventListener(
-"timeupdate",
-() => {
-
-if(
-!bgMusic.duration
-)
-return;
-
-const p =
-(
-bgMusic.currentTime
-/
-bgMusic.duration
-)
-*100;
-
-musicProgress
-.style.width =
-p + "%";
-
-}
-);
-
 </script>
-
-<style>
-
-.hearts{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-}
-
-@keyframes float{
-
-0%{
-  transform:
-  translateY(20px);
-  opacity:0;
-}
-
-20%{
-  opacity:1;
-}
-
-100%{
-  transform:
-  translateY(-850px)
-  rotate(360deg);
-
-  opacity:0;
-}
-
-}
-
-</style>
 
 </body>
 </html>
