@@ -1,760 +1,634 @@
 <!DOCTYPE html>
 <html lang="ckb" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Love Captcha</title>
-  <style>
-    :root{
-      --bg1:#d8d0d3;
-      --bg2:#cec3c8;
-      --phone:#f7f1f4;
-      --card:#ffffff;
-      --line:#dadce0;
-      --text:#202124;
-      --muted:#5f6368;
-      --blue:#1a73e8;
-      --blue-dark:#1967d2;
-      --success:#34a853;
-      --danger:#ea4335;
-      --soft-blue:#e8f0fe;
-      --shadow:0 18px 60px rgba(0,0,0,.12);
-      --radius:18px;
-      --radius-sm:10px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Love Captcha</title>
 
-    *{box-sizing:border-box}
+<style>
+:root{
+  --bg1:#d8d0d3;
+  --bg2:#cec3c8;
+  --phone:#f7f1f4;
+  --card:#ffffff;
+  --line:#dadce0;
+  --text:#202124;
+  --muted:#5f6368;
+  --blue:#1a73e8;
+  --success:#34a853;
+}
 
-    html,body{
-      margin:0;
-      padding:0;
-      width:100%;
-      height:100%;
-      overflow:hidden;
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "SF Pro Text",
-        "Segoe UI",
-        "Noto Sans Arabic",
-        "Tahoma",
-        sans-serif,
-        "Apple Color Emoji",
-        "Segoe UI Emoji";
-      background:
-        radial-gradient(circle at top right, #efe5ea 0%, transparent 32%),
-        radial-gradient(circle at bottom left, #e7d7df 0%, transparent 28%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
-      color:var(--text);
-    }
+*{
+  box-sizing:border-box;
+}
 
-    body{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:14px;
-    }
+html,
+body{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:
+  -apple-system,
+  BlinkMacSystemFont,
+  "SF Pro Display",
+  "SF Pro Text",
+  "Segoe UI",
+  "Noto Sans Arabic",
+  sans-serif;
 
-    .phone{
-      position:relative;
-      width:min(92vw, 392px);
-      height:min(94vh, 790px);
-      border-radius:38px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.45)),
-        var(--phone);
-      border:1px solid rgba(255,255,255,.85);
-      box-shadow:
-        0 30px 80px rgba(0,0,0,.18),
-        inset 0 1px 0 rgba(255,255,255,.8);
-      overflow:hidden;
-      isolation:isolate;
-    }
+  background:
+  radial-gradient(circle at top right,#efe5ea 0%,transparent 32%),
+  radial-gradient(circle at bottom left,#e7d7df 0%,transparent 28%),
+  linear-gradient(180deg,var(--bg1),var(--bg2));
 
-    .phone::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at 15% 10%, rgba(255,255,255,.7), transparent 30%),
-        radial-gradient(circle at 85% 90%, rgba(255,192,203,.22), transparent 25%);
-      pointer-events:none;
-      z-index:0;
-    }
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+}
 
-    .notch{
-      position:absolute;
-      top:10px;
-      left:50%;
-      transform:translateX(-50%);
-      width:120px;
-      height:28px;
-      border-radius:20px;
-      background:#111;
-      opacity:.92;
-      z-index:5;
-    }
+.phone{
+  position:relative;
+  width:min(92vw,392px);
+  height:min(94vh,790px);
 
-    .screen{
-      position:relative;
-      z-index:1;
-      width:100%;
-      height:100%;
-      padding:54px 14px 16px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      gap:14px;
-    }
+  border-radius:38px;
 
-    .captcha-shell{
-      width:100%;
-      max-width:360px;
-      transition:transform .45s ease, opacity .45s ease;
-    }
+  background:
+  linear-gradient(
+    180deg,
+    rgba(255,255,255,.75),
+    rgba(255,255,255,.45)
+  ),
+  var(--phone);
 
-    .captcha-shell.done{
-      transform:translateY(-6px);
-    }
+  border:1px solid rgba(255,255,255,.85);
 
-    .card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:14px;
-      box-shadow:0 8px 24px rgba(0,0,0,.06);
-    }
+  box-shadow:
+  0 30px 80px rgba(0,0,0,.18),
+  inset 0 1px 0 rgba(255,255,255,.8);
 
-    .recaptcha{
-      padding:16px 14px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-height:82px;
-    }
+  overflow:hidden;
+}
 
-    .checkbox{
-      position:relative;
-      width:30px;
-      height:30px;
-      border:2px solid #9aa0a6;
-      border-radius:4px;
-      background:#fff;
-      flex:0 0 auto;
-      cursor:pointer;
-      transition:all .25s ease;
-    }
+.phone::before{
+  content:"";
+  position:absolute;
+  inset:0;
 
-    .checkbox:hover{
-      transform:scale(1.03);
-    }
+  background:
+  radial-gradient(
+    circle at 15% 10%,
+    rgba(255,255,255,.7),
+    transparent 30%
+  ),
+  radial-gradient(
+    circle at 85% 90%,
+    rgba(255,192,203,.22),
+    transparent 25%
+  );
+}
 
-    .checkbox.loading{
-      border-color:var(--blue);
-    }
+.notch{
+  position:absolute;
+  top:10px;
+  left:50%;
+  transform:translateX(-50%);
+  width:120px;
+  height:28px;
+  border-radius:20px;
+  background:#111;
+  z-index:5;
+}
 
-    .checkbox.loading::before{
-      content:"";
-      position:absolute;
-      inset:5px;
-      border:3px solid #cfe0ff;
-      border-top-color:var(--blue);
-      border-radius:50%;
-      animation:spin .8s linear infinite;
-    }
+.screen{
+  position:relative;
+  width:100%;
+  height:100%;
+  z-index:1;
 
-    .checkbox.verified{
-      border-color:var(--success);
-      background:var(--success);
-    }
+  padding:54px 14px 16px;
 
-    .checkbox.verified::before{
-      content:"✓";
-      position:absolute;
-      inset:0;
-      display:grid;
-      place-items:center;
-      color:#fff;
-      font-weight:900;
-      font-size:20px;
-    }
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-    .recaptcha-main{
-      flex:1;
-      min-width:0;
-    }
+.captcha-shell{
+  width:100%;
+  max-width:360px;
+}
 
-    .recaptcha-title{
-      font-size:16px;
-      line-height:1.5;
-      font-weight:500;
-      color:var(--text);
-    }
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+}
 
-    .recaptcha-side{
-      width:72px;
-      flex:0 0 auto;
-      text-align:center;
-      color:#7b8188;
-      font-size:10px;
-      line-height:1.25;
-      user-select:none;
-    }
+.recaptcha{
+  padding:16px 14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:82px;
+}
 
-    .recaptcha-side .logo{
-      width:34px;
-      height:34px;
-      margin:0 auto 4px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      background:conic-gradient(from 210deg, #4285f4, #34a853, #fbbc05, #ea4335, #4285f4);
-      color:#fff;
-      font-size:16px;
-      box-shadow:0 4px 10px rgba(66,133,244,.28);
-    }
+.checkbox{
+  position:relative;
+  width:30px;
+  height:30px;
+  border:2px solid #9aa0a6;
+  border-radius:4px;
+  background:#fff;
+  cursor:pointer;
+}
 
-    .challenge{
-      margin-top:10px;
-      overflow:hidden;
-      max-height:0;
-      opacity:0;
-      transform:translateY(-8px);
-      transition:max-height .55s ease, opacity .35s ease, transform .35s ease;
-    }
+.checkbox.loading::before{
+  content:"";
+  position:absolute;
+  inset:5px;
 
-    .challenge.show{
-      max-height:620px;
-      opacity:1;
-      transform:translateY(0);
-    }
+  border:3px solid #cfe0ff;
+  border-top-color:#1a73e8;
+  border-radius:50%;
 
-    .challenge-head{
-      background:linear-gradient(180deg, #2d7ef7, #1967d2);
-      color:#fff;
-      padding:14px 16px 12px;
-      border-radius:14px 14px 0 0;
-    }
+  animation:spin .8s linear infinite;
+}
 
-    .challenge-label{
-      font-size:13px;
-      opacity:.95;
-      margin-bottom:4px;
-    }
+.checkbox.verified{
+  background:#34a853;
+  border-color:#34a853;
+}
 
-    .challenge-title{
-      font-size:21px;
-      line-height:1.45;
-      font-weight:700;
-    }
+.checkbox.verified::before{
+  content:"✓";
+  position:absolute;
+  inset:0;
 
-    .challenge-body{
-      background:#fff;
-      border:1px solid var(--line);
-      border-top:none;
-      border-radius:0 0 14px 14px;
-      overflow:hidden;
-    }
+  display:grid;
+  place-items:center;
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:8px;
-      padding:12px;
-      background:#f8f9fa;
-      border-bottom:1px solid #eceff1;
-    }
+  color:#fff;
+  font-size:20px;
+  font-weight:900;
+}
 
-    .tile{
-      position:relative;
-      aspect-ratio:1/1;
-      border-radius:10px;
-      border:2px solid #dfe3e7;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.95), rgba(255,255,255,.7) 45%, rgba(250,246,248,.95) 100%);
-      display:grid;
-      place-items:center;
-      font-size:40px;
-      cursor:pointer;
-      user-select:none;
-      transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
-      overflow:hidden;
-    }
+.recaptcha-main{
+  flex:1;
+}
 
-    .tile::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(135deg, rgba(255,182,193,.18), rgba(173,216,230,.08));
-      pointer-events:none;
-    }
+.recaptcha-title{
+  font-size:16px;
+  line-height:1.5;
+  color:#202124;
+}
 
-    .tile:hover{
-      transform:translateY(-2px);
-      box-shadow:0 10px 16px rgba(0,0,0,.08);
-    }
+.recaptcha-side{
+  width:72px;
+  text-align:center;
+  color:#7b8188;
+  font-size:10px;
+}
 
-    .tile.selected{
-      border-color:var(--blue);
-      box-shadow:0 0 0 3px rgba(26,115,232,.14);
-    }
+.logo{
+  width:34px;
+  height:34px;
+  margin:auto;
+  margin-bottom:4px;
 
-    .tile.selected::after{
-      content:"✓";
-      position:absolute;
-      top:6px;
-      left:6px;
-      width:24px;
-      height:24px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      font-size:14px;
-      font-weight:800;
-      color:#fff;
-      background:var(--blue);
-      box-shadow:0 3px 8px rgba(26,115,232,.28);
-    }
+  display:grid;
+  place-items:center;
 
-    .challenge-actions{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:10px 12px;
-      background:#fff;
-    }
+  border-radius:50%;
 
-    .challenge-note{
-      font-size:12px;
-      color:#7a7f86;
-    }
+  background:
+  conic-gradient(
+    from 210deg,
+    #4285f4,
+    #34a853,
+    #fbbc05,
+    #ea4335,
+    #4285f4
+  );
 
-    .verify-btn{
-      border:none;
-      background:linear-gradient(180deg, #2d7ef7, #1967d2);
-      color:#fff;
-      border-radius:8px;
-      padding:12px 20px;
-      font-size:15px;
-      font-weight:700;
-      cursor:pointer;
-      min-width:112px;
-      box-shadow:0 8px 20px rgba(26,115,232,.26);
-      transition:transform .18s ease, opacity .2s ease;
-    }
+  color:#fff;
+}
 
-    .verify-btn:hover{ transform:translateY(-1px); }
-    .verify-btn:active{ transform:translateY(1px); }
+.challenge{
+  margin-top:10px;
+  overflow:hidden;
+  max-height:0;
+  opacity:0;
+  transform:translateY(-8px);
 
-    .shake{
-      animation:shake .45s ease;
-    }
+  transition:
+  max-height .55s ease,
+  opacity .35s ease,
+  transform .35s ease;
+}
 
-    .letter-wrap{
-      position:absolute;
-      inset:54px 14px 14px;
-      display:flex;
-      align-items:flex-end;
-      justify-content:center;
-      pointer-events:none;
-      z-index:3;
-    }
+.challenge.show{
+  max-height:620px;
+  opacity:1;
+  transform:translateY(0);
+}
 
-    .letter-card{
-      width:100%;
-      max-width:360px;
-      max-height:100%;
-      background:rgba(255,255,255,.97);
-      border:1px solid rgba(255,255,255,.8);
-      border-radius:26px;
-      box-shadow:0 28px 80px rgba(0,0,0,.18);
-      overflow:hidden;
-      opacity:0;
-      transform:translateY(60px) scale(.97);
-      transition:transform .7s cubic-bezier(.2,.8,.2,1), opacity .55s ease;
-      pointer-events:none;
-      display:flex;
-      flex-direction:column;
-      backdrop-filter:blur(16px);
-    }
+.challenge-head{
+  background:
+  linear-gradient(
+    180deg,
+    #2d7ef7,
+    #1967d2
+  );
 
-    .letter-card.show{
-      opacity:1;
-      transform:translateY(0) scale(1);
-      pointer-events:auto;
-    }
+  color:#fff;
+  padding:14px 16px 12px;
+  border-radius:14px 14px 0 0;
+}
 
-    .letter-top{
-      position:relative;
-      padding:18px 18px 12px;
-      background:
-        radial-gradient(circle at top right, rgba(255,255,255,.95), transparent 36%),
-        linear-gradient(135deg, #ffe7ef, #f9f0ff 55%, #eef5ff);
-      border-bottom:1px solid rgba(0,0,0,.05);
-      text-align:center;
-    }
+.challenge-label{
+  font-size:13px;
+  margin-bottom:4px;
+}
 
-    .verified-line{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 14px;
-      border-radius:999px;
-      background:#fff;
-      box-shadow:0 8px 24px rgba(0,0,0,.08);
-      font-size:14px;
-      font-weight:700;
-      color:#1d7f43;
-      margin-bottom:12px;
-    }
+.challenge-title{
+  font-size:21px;
+  font-weight:700;
+  line-height:1.45;
+}
 
-    .verified-dot{
-      width:22px;
-      height:22px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      background:var(--success);
-      color:#fff;
-      font-size:13px;
-      font-weight:900;
-    }
+.challenge-body{
+  background:#fff;
+  border:1px solid var(--line);
+  border-top:none;
+  border-radius:0 0 14px 14px;
+  overflow:hidden;
+}
 
-    .hero{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:8px;
-    }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  padding:12px;
+  background:#f8f9fa;
+}
 
-    .hero-emoji{
-      font-size:64px;
-      line-height:1;
-      filter:drop-shadow(0 8px 12px rgba(0,0,0,.08));
-    }
+.tile{
+  aspect-ratio:1;
+  border-radius:10px;
+  border:2px solid #dfe3e7;
 
-    .hero-heart{
-      font-size:30px;
-      animation:pulse 1.6s ease-in-out infinite;
-    }
+  background:
+  radial-gradient(
+    circle at 20% 20%,
+    rgba(255,255,255,.95),
+    rgba(255,255,255,.7) 45%,
+    rgba(250,246,248,.95)
+  );
 
-    .hero-title{
-      font-size:24px;
-      font-weight:800;
-      color:#5b4450;
-      margin-top:2px;
-    }
+  display:grid;
+  place-items:center;
+  font-size:40px;
+  cursor:pointer;
+}
 
-    .letter-scroll{
-      overflow:auto;
-      padding:16px 18px 22px;
-      scrollbar-width:none;
-    }
-    .letter-scroll::-webkit-scrollbar{display:none}
+.tile.selected{
+  border-color:#1a73e8;
+  box-shadow:
+  0 0 0 3px rgba(26,115,232,.14);
+}
 
-    .letter-text{
-      margin:0;
-      font-size:16px;
-      line-height:2.05;
-      color:#43484d;
-      white-space:pre-line;
-    }
+.tile.selected::after{
+  content:"✓";
 
-    .letter-sign{
-      margin-top:16px;
-      font-size:15px;
-      font-weight:700;
-      color:#8a4b64;
-      text-align:center;
-    }
+  position:absolute;
+  top:6px;
+  left:6px;
 
-    .hearts{
-      position:absolute;
-      inset:0;
-      overflow:hidden;
-      pointer-events:none;
-      z-index:2;
-      opacity:0;
-      transition:opacity .4s ease;
-    }
+  width:24px;
+  height:24px;
 
-    .hearts.show{ opacity:1; }
+  display:grid;
+  place-items:center;
 
-    .heart{
-      position:absolute;
-      top:-40px;
-      font-size:var(--size);
-      left:var(--left);
-      animation:fall var(--dur) linear infinite;
-      animation-delay:var(--delay);
-      filter:drop-shadow(0 8px 10px rgba(255,105,180,.16));
-      opacity:.9;
-      transform:translateY(-40px) rotate(0deg);
-    }
+  border-radius:50%;
+  background:#1a73e8;
+  color:#fff;
+}
+  .challenge-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 12px;
+  background:#fff;
+}
 
-    .footer-hint{
-      position:absolute;
-      bottom:8px;
-      left:0;
-      right:0;
-      text-align:center;
-      font-size:11px;
-      color:rgba(0,0,0,.34);
-      z-index:4;
-      letter-spacing:.2px;
-    }
+.challenge-note{
+  font-size:12px;
+  color:#7a7f86;
+}
 
-    @keyframes spin{
-      to{ transform:rotate(360deg); }
-    }
+.verify-btn{
+  border:none;
+  background:linear-gradient(180deg,#2d7ef7,#1967d2);
+  color:#fff;
+  border-radius:8px;
+  padding:12px 20px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+}
 
-    @keyframes shake{
-      0%,100%{ transform:translateX(0); }
-      20%{ transform:translateX(-7px); }
-      40%{ transform:translateX(7px); }
-      60%{ transform:translateX(-5px); }
-      80%{ transform:translateX(5px); }
-    }
+.letter-wrap{
+  position:absolute;
+  inset:54px 14px 14px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  pointer-events:none;
+}
 
-    @keyframes pulse{
-      0%,100%{ transform:scale(1); }
-      50%{ transform:scale(1.14); }
-    }
+.letter-card{
+  width:100%;
+  max-width:360px;
+  background:rgba(255,255,255,.97);
+  border-radius:26px;
+  overflow:hidden;
 
-    @keyframes fall{
-      0%{
-        transform:translate3d(0,-40px,0) rotate(0deg);
-        opacity:0;
-      }
-      10%{ opacity:.95; }
-      100%{
-        transform:translate3d(18px, 900px, 0) rotate(280deg);
-        opacity:.15;
-      }
-    }
+  opacity:0;
+  transform:translateY(60px) scale(.97);
 
-    @media (max-width:420px){
-      .screen{ padding-inline:10px; }
-      .challenge-title{ font-size:19px; }
-      .hero-emoji{ font-size:56px; }
-      .hero-title{ font-size:22px; }
-      .tile{ font-size:36px; }
-    }
-  </style>
+  transition:
+  transform .7s cubic-bezier(.2,.8,.2,1),
+  opacity .55s ease;
+
+  pointer-events:none;
+
+  box-shadow:
+  0 28px 80px rgba(0,0,0,.18);
+}
+
+.letter-card.show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+
+.letter-top{
+  padding:18px;
+  text-align:center;
+
+  background:
+  linear-gradient(
+    135deg,
+    #ffe7ef,
+    #f9f0ff,
+    #eef5ff
+  );
+}
+
+.hero-emoji{
+  font-size:64px;
+}
+
+.hero-heart{
+  font-size:30px;
+}
+
+.hero-title{
+  font-size:24px;
+  font-weight:800;
+  color:#5b4450;
+}
+
+.letter-scroll{
+  padding:18px;
+  overflow:auto;
+}
+
+.letter-text{
+  margin:0;
+  white-space:pre-line;
+  line-height:2;
+  color:#43484d;
+}
+
+.letter-sign{
+  margin-top:16px;
+  text-align:center;
+  font-weight:700;
+  color:#8a4b64;
+}
+
+/* Music Player */
+
+.music-player{
+  display:none;
+  margin-top:22px;
+  padding:14px;
+  border-radius:24px;
+
+  background:
+  linear-gradient(
+    180deg,
+    rgba(255,255,255,.97),
+    rgba(255,240,246,.95)
+  );
+
+  border:1px solid rgba(255,192,203,.4);
+
+  box-shadow:
+  0 12px 30px rgba(255,182,193,.25);
+
+  align-items:center;
+  gap:14px;
+}
+
+.music-player.show{
+  display:flex;
+}
+
+.music-cover{
+  width:58px;
+  height:58px;
+  border-radius:18px;
+
+  display:grid;
+  place-items:center;
+
+  font-size:28px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #ffdce8,
+    #fff4f8
+  );
+}
+
+.music-info{
+  flex:1;
+}
+
+.music-title{
+  font-size:16px;
+  font-weight:800;
+  color:#c26b89;
+  margin-bottom:10px;
+}
+
+.music-bar{
+  width:100%;
+  height:6px;
+  border-radius:999px;
+  overflow:hidden;
+  background:#ffe4ee;
+}
+
+.music-progress{
+  width:0%;
+  height:100%;
+  background:
+  linear-gradient(
+    90deg,
+    #ffb6c1,
+    #ff8fb1
+  );
+}
+
+.music-btn{
+  width:48px;
+  height:48px;
+  border:none;
+  border-radius:50%;
+  cursor:pointer;
+
+  background:
+  linear-gradient(
+    180deg,
+    #ffd7e6,
+    #ffb7cc
+  );
+
+  color:#fff;
+  font-size:18px;
+}
+
+.hearts{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.heart{
+  position:absolute;
+  top:-40px;
+  animation:fall 7s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes fall{
+  from{
+    transform:translateY(-40px);
+    opacity:0;
+  }
+
+  to{
+    transform:translateY(900px);
+    opacity:.15;
+  }
+}
+</style>
 </head>
+
 <body>
-  <div class="phone">
-    <div class="notch"></div>
 
-    <div class="hearts" id="hearts"></div>
+<audio id="bgMusic" loop>
+  <source src="1000054433.mp4" type="audio/mp4">
+</audio>
 
-    <div class="screen">
-      <div class="captcha-shell" id="captchaShell">
-        <div class="card recaptcha" id="recaptchaCard">
-          <div class="checkbox" id="checkbox" aria-label="checkbox"></div>
+<script>
+const bgMusic =
+document.getElementById("bgMusic");
 
-          <div class="recaptcha-main">
-            <div class="recaptcha-title" id="mainTitle">من ڕۆبۆت نیم، بەڵکو عاشقی تۆم 💖</div>
-          </div>
+function showLetter(){
+  spawnHearts();
 
-          <div class="recaptcha-side">
-            <div class="logo">✓</div>
-            <div>reCAPTCHA</div>
-            <div>Privacy - Terms</div>
-          </div>
-        </div>
+  setTimeout(() => {
+    letterCard.classList.add("show");
 
-        <div class="challenge" id="challenge">
-          <div class="challenge-head">
-            <div class="challenge-label">هەڵبژاردن</div>
-            <div class="challenge-title">هەموو ئەو چوارگۆشانە هەڵبژێرە کە دڵی 💖 تێدایە</div>
-          </div>
+    const player =
+    document.getElementById(
+      "musicPlayer"
+    );
 
-          <div class="challenge-body">
-            <div class="grid" id="grid">
-              <div class="tile" data-index="0">🦋</div>
-              <div class="tile" data-index="1">💖</div>
-              <div class="tile" data-index="2">🌸</div>
-              <div class="tile" data-index="3">🎀</div>
-              <div class="tile" data-index="4">💗</div>
-              <div class="tile" data-index="5">🐱</div>
-              <div class="tile" data-index="6">☕️</div>
-              <div class="tile" data-index="7">🍓</div>
-              <div class="tile" data-index="8">💕</div>
-            </div>
-
-            <div class="challenge-actions">
-              <div class="challenge-note">Apple-style mobile love captcha</div>
-              <button class="verify-btn" id="verifyBtn">سەلماندن</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="letter-wrap">
-      <div class="letter-card" id="letterCard">
-        <div class="letter-top">
-          <div class="verified-line">
-            <span class="verified-dot">✓</span>
-            <span>سەلمێندرا بە سەرکەوتوویی 💖</span>
-          </div>
-
-          <div class="hero">
-            <div class="hero-emoji">👩🏻‍❤️‍👨🏻</div>
-            <div class="hero-heart">💗</div>
-            <div class="hero-title">تاقانەکەی دڵم!</div>
-          </div>
-        </div>
-
-        <div class="letter-scroll">
-          <p class="letter-text" id="letterText"></p>
-          <div class="letter-sign">لەگەڵ هەموو خۆشەویستییەکم 💕</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-hint">Made with love • iPhone style • Kurdish UI</div>
-  </div>
-
-  <script>
-    const checkbox = document.getElementById("checkbox");
-    const challenge = document.getElementById("challenge");
-    const verifyBtn = document.getElementById("verifyBtn");
-    const captchaShell = document.getElementById("captchaShell");
-    const letterCard = document.getElementById("letterCard");
-    const hearts = document.getElementById("hearts");
-    const letterText = document.getElementById("letterText");
-    const gridTiles = [...document.querySelectorAll(".tile")];
-
-    // ئەگەر دەتەوێ تێکستی خۆت دابنێیت، تەنها ئەم بەشە بگۆڕە
-    const LETTER_MESSAGE = `
-تاقانەکەی دڵم! 💖
-
-تۆ بۆ من تەنها کەسێک نیت؛
-تۆ ئەو هەستە ئارامەی کە دڵم هەر جارێک ناوت دەبیستێت پڕ لە خۆشی دەبێت.
-بوونت لە ژیانمدا وەک ڕووناکییە لە شەوێکی ئارامدا،
-وەک گەرماییە لە سەرمای ڕۆژێکی درێژدا،
-وەک دعايەکی جوانە کە دڵم هەموو کاتێک دەیخوازێت.
-
-ئەگەر هەموو جیهان پرسیاری لە دڵم بکات،
-وەڵامەکەی هەر تۆیت.
-ئەگەر پرسیارن خۆشەویستی چییە،
-من ناوی تۆ دەهێنم.
-چونکە لەگەڵ تۆدا وردە وردە فێر بووم
-کە خۆشەویستی تەنها وشە نییە،
-هەستێکی ڕاستەقینەیە کە ژیان جوانتر دەکات.
-
-سوپاس بۆ هەموو خەندەکانت،
-بۆ هەموو ئارامییەکانت،
-بۆ هەموو ئەو چرکە ساتانەی کە تۆیان کردووە
-بە جوانترین بەش لە بیرەوەرییەکانم.
-
-هەر کاتێک بێت،
-من دڵم لەگەڵ تۆیە.
-هەر شوێنێک بێت،
-ئاواتەکانم لەگەڵ تۆ دەڕۆن.
-و هەر ڕۆژێکیش بێت،
-خۆشەویستییەکم بۆ تۆ کەم نابێت؛
-بەڵکو زیاتر و زیاتر دەبێت. 💕
-    `.trim();
-
-    letterText.textContent = LETTER_MESSAGE;
-
-    const CORRECT_SELECTION = [1, 4, 8]; // top-middle, center, bottom-right
-    const selected = new Set();
-    let challengeOpened = false;
-    let verified = false;
-
-    function openChallenge() {
-      if (challengeOpened || verified) return;
-      challengeOpened = true;
-      checkbox.classList.add("loading");
-
-      setTimeout(() => {
-        checkbox.classList.remove("loading");
-        challenge.classList.add("show");
-      }, 850);
+    if(player){
+      player.classList.add("show");
     }
 
-    function toggleTile(tile) {
-      if (verified) return;
-      const index = Number(tile.dataset.index);
+    bgMusic.play().catch(() => {});
+  },180);
+}
 
-      if (selected.has(index)) {
-        selected.delete(index);
-        tile.classList.remove("selected");
-      } else {
-        selected.add(index);
-        tile.classList.add("selected");
-      }
+document.addEventListener(
+  "click",
+  () => {
+    if(
+      verified &&
+      bgMusic.paused
+    ){
+      bgMusic.play();
     }
+  }
+);
 
-    function isCorrectSelection() {
-      if (selected.size !== CORRECT_SELECTION.length) return false;
-      return CORRECT_SELECTION.every(i => selected.has(i));
+const playBtn =
+document.getElementById(
+  "playBtn"
+);
+
+const progress =
+document.getElementById(
+  "musicProgress"
+);
+
+if(playBtn){
+  playBtn.onclick = () => {
+    if(bgMusic.paused){
+      bgMusic.play();
+      playBtn.textContent = "❚❚";
+    }else{
+      bgMusic.pause();
+      playBtn.textContent = "▶";
     }
+  };
+}
 
-    function spawnHearts() {
-      hearts.innerHTML = "";
-      const emojis = ["💖","💕","💗","💓","💞","💘","💝","✨"];
-      for (let i = 0; i < 24; i++) {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        heart.style.setProperty("--left", `${Math.random() * 100}%`);
-        heart.style.setProperty("--size", `${16 + Math.random() * 18}px`);
-        heart.style.setProperty("--dur", `${5.5 + Math.random() * 4.5}s`);
-        heart.style.setProperty("--delay", `${Math.random() * 4}s`);
-        hearts.appendChild(heart);
-      }
-      hearts.classList.add("show");
+bgMusic.addEventListener(
+  "timeupdate",
+  () => {
+    if(!bgMusic.duration) return;
+
+    const p =
+      (bgMusic.currentTime /
+       bgMusic.duration) * 100;
+
+    if(progress){
+      progress.style.width =
+      p + "%";
     }
+  }
+);
+</script>
 
-    function showLetter() {
-      spawnHearts();
-      setTimeout(() => {
-        letterCard.classList.add("show");
-      }, 180);
-    }
-
-    function completeCaptcha() {
-      verified = true;
-
-      checkbox.classList.remove("loading");
-      checkbox.classList.add("verified");
-      captchaShell.classList.add("done");
-      challenge.classList.remove("show");
-
-      document.getElementById("mainTitle").textContent = "سەلمێندرا بە سەرکەوتوویی 💖";
-
-      setTimeout(() => {
-        showLetter();
-      }, 700);
-    }
-
-    function failAnimation() {
-      challenge.classList.remove("shake");
-      void challenge.offsetWidth;
-      challenge.classList.add("shake");
-    }
-
-    checkbox.addEventListener("click", openChallenge);
-
-    gridTiles.forEach(tile => {
-      tile.addEventListener("click", () => toggleTile(tile));
-    });
-
-    verifyBtn.addEventListener("click", () => {
-      if (!challengeOpened || verified) return;
-
-      if (isCorrectSelection()) {
-        completeCaptcha();
-      } else {
-        failAnimation();
-      }
-    });
-  </script>
 </body>
 </html>
