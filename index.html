@@ -284,12 +284,10 @@
 </head>
 <body>
 
-<!-- ناوی فایلی گۆرانییەکەت لەسەر گیتھەب -->
-<audio id="bgMusic" src="74896a2c015d8bd377bdf7770c465185_3.mp3"></audio>
+<audio id="bgMusic" src="./74896a2c015d8bd377bdf7770c465185.mp3"></audio>
 
 <div class="captcha-container" id="mainContainer">
     
-    <!-- هەنگاوی یەکەم -->
     <div class="captcha-anchor" id="step1">
         <div class="anchor-content" onclick="openGrid()">
             <div class="anchor-checkbox" id="checkbox"></div>
@@ -301,7 +299,6 @@
         </div>
     </div>
 
-    <!-- هەنگاوی دووەم -->
     <div class="grid-window" id="step2">
         <div class="grid-header">
             <h3>هەموو ئەو چوارگۆشانە هەڵبژێرە کە</h3>
@@ -323,19 +320,17 @@
         </div>
     </div>
 
-    <!-- هەنگاوی سێیەم -->
     <div class="success-window" id="step3">
         <div class="card-letter">
             <h2>تاقانەکەی دڵم! 💖</h2>
-            <!-- ناوی فایلی وێنەکەت لەسەر گیتھەب -->
-            <img src="IMG_20260626_051942_3.jpg" class="main-img" alt="Bears">
+            <img src="./IMG_20260626_051942.jpg" class="main-img" alt="SaqaW bm">
             <p>
-                لەو ڕۆژەوەی هاتوویتە ژیانمەوە، هەموو شتێک جوانی و ئارامییەکی تایبەتی گرتووە! 🥺 تەنانەت بیرکردنەوەش لێت، زەردەخەنە دەخاتە سەر لێوەکانم.
+                لەو ڕۆژەوەی هاتوویتە ژیانمەوە، هەموو شتێک جوانی و ئارامییەکی تایبەتی گرتووە! 🥺 تەنانەت بیرکردنەوەش لێت، زەردەخەنە دەخاتە سەر لێوەکانم. تۆ نەک هەر خۆشەویستمی، بەڵکوو ئارامیی ڕۆح و جوانترین ڕێکەوتی ژیانمی.
             </p>
         </div>
 
         <div class="music-player">
-            <img src="IMG_20260626_051942_3.jpg" class="player-cover" alt="Cover">
+            <img src="./IMG_20260626_051942.jpg" class="player-cover" alt="Cover">
             <div class="player-info">
                 <div class="track-title">خۆشەویستی من و تۆ</div>
                 <div class="time-controls">
@@ -380,7 +375,12 @@
         if (selectedCorrect === totalCorrect && selectedWrong === 0) {
             document.getElementById('step2').style.display = 'none';
             document.getElementById('step3').style.display = 'block';
-            audio.play().catch(e => console.log("Audio play blocked initially"));
+            
+            // چاککردنی لۆدکردنی دەنگەکە پێش لێدان
+            audio.load();
+            setTimeout(() => {
+                audio.play().catch(e => console.log("گۆرانییەکە پێویستی بە کلیک هەیە"));
+            }, 300);
         } else {
             alert('تکایە سەرجەم ئەو چوارگۆشانە هەڵبژێرە کە دڵیان تێدایە! 🥺');
         }
@@ -397,13 +397,15 @@
     }
 
     audio.addEventListener('timeupdate', () => {
-        const progress = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = `${progress}%`;
-        
-        let currentMin = Math.floor(audio.currentTime / 60);
-        let currentSec = Math.floor(audio.currentTime % 60);
-        if(currentSec < 10) currentSec = '0' + currentSec;
-        currentTimeText.innerText = `${currentMin}:${currentSec}`;
+        if (audio.duration) {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            let currentMin = Math.floor(audio.currentTime / 60);
+            let currentSec = Math.floor(audio.currentTime % 60);
+            if(currentSec < 10) currentSec = '0' + currentSec;
+            currentTimeText.innerText = `${currentMin}:${currentSec}`;
+        }
     });
 
     audio.addEventListener('loadedmetadata', () => {
