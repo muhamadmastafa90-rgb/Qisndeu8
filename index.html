@@ -248,6 +248,8 @@
 </head>
 <body>
 
+<audio id="bgMusic" loop src="http://googleusercontent.com/file_content/0"></audio>
+
 <div class="container" id="mainContainer">
     
     <div class="captcha-box" id="step1">
@@ -303,7 +305,17 @@
 </div>
 
 <script>
+    function playMusic() {
+        const music = document.getElementById('bgMusic');
+        music.play().catch(error => {
+            console.log("لێدانی خۆکار بلۆک کراوە لە لایەن وێبگەڕەوە، بە کارلێکی بەکارهێنەر لێدەدات.");
+        });
+    }
+
     function openCaptchaGrid() {
+        // لێدانی موزیکەکە لەگەڵ یەکەم کلیک
+        playMusic();
+        
         document.getElementById('checkbox').style.background = '#f0f0f0';
         
         setTimeout(() => {
