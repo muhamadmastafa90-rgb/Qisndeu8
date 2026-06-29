@@ -2,177 +2,114 @@
 <html lang="ckb" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Love Captcha</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Love Captcha 💖</title>
 
 <style>
-:root{
-  --bg1:#d8d0d3;
-  --bg2:#cec3c8;
-  --phone:#f7f1f4;
-  --card:#ffffff;
-  --line:#dadce0;
-  --text:#202124;
-  --muted:#5f6368;
-  --blue:#1a73e8;
-  --success:#34a853;
-}
-
 *{
-  box-sizing:border-box;
-}
-
-html,
-body{
   margin:0;
   padding:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
+  box-sizing:border-box;
   font-family:
   -apple-system,
   BlinkMacSystemFont,
   "SF Pro Display",
-  "SF Pro Text",
-  "Segoe UI",
-  "Noto Sans Arabic",
   sans-serif;
-
-  background:
-  radial-gradient(circle at top right,#efe5ea 0%,transparent 32%),
-  radial-gradient(circle at bottom left,#e7d7df 0%,transparent 28%),
-  linear-gradient(180deg,var(--bg1),var(--bg2));
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:14px;
 }
 
-.phone{
-  position:relative;
-  width:min(92vw,392px);
-  height:min(94vh,790px);
-
-  border-radius:38px;
-
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   background:
-  linear-gradient(
-    180deg,
-    rgba(255,255,255,.75),
-    rgba(255,255,255,.45)
-  ),
-  var(--phone);
-
-  border:1px solid rgba(255,255,255,.85);
-
-  box-shadow:
-  0 30px 80px rgba(0,0,0,.18),
-  inset 0 1px 0 rgba(255,255,255,.8);
-
+  radial-gradient(circle at top,#ffe6f0,#f6edf7 45%,#e8ebff);
   overflow:hidden;
 }
 
-.phone::before{
-  content:"";
-  position:absolute;
-  inset:0;
-
+.phone{
+  width:390px;
+  height:820px;
   background:
-  radial-gradient(
-    circle at 15% 10%,
-    rgba(255,255,255,.7),
-    transparent 30%
-  ),
-  radial-gradient(
-    circle at 85% 90%,
-    rgba(255,192,203,.22),
-    transparent 25%
+  linear-gradient(
+    180deg,
+    rgba(255,255,255,.85),
+    rgba(255,255,255,.65)
   );
+
+  backdrop-filter:blur(20px);
+
+  border-radius:42px;
+
+  border:1px solid rgba(255,255,255,.8);
+
+  box-shadow:
+  0 25px 80px rgba(0,0,0,.18);
+
+  overflow:hidden;
+  position:relative;
 }
 
 .notch{
+  width:120px;
+  height:28px;
+  background:#111;
+  border-radius:20px;
   position:absolute;
   top:10px;
   left:50%;
   transform:translateX(-50%);
-  width:120px;
-  height:28px;
-  border-radius:20px;
-  background:#111;
-  z-index:5;
 }
 
 .screen{
-  position:relative;
-  width:100%;
   height:100%;
-  z-index:1;
-
-  padding:54px 14px 16px;
-
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
+  padding:55px 18px 20px;
 }
 
 .captcha-shell{
   width:100%;
-  max-width:360px;
+  max-width:350px;
 }
 
 .card{
   background:#fff;
-  border:1px solid var(--line);
-  border-radius:14px;
-  box-shadow:0 8px 24px rgba(0,0,0,.06);
+  border-radius:18px;
+  border:1px solid #ececec;
+  box-shadow:
+  0 10px 30px rgba(0,0,0,.08);
 }
 
 .recaptcha{
-  padding:16px 14px;
   display:flex;
   align-items:center;
   gap:12px;
-  min-height:82px;
+  padding:18px;
 }
 
 .checkbox{
-  position:relative;
   width:30px;
   height:30px;
   border:2px solid #9aa0a6;
-  border-radius:4px;
-  background:#fff;
+  border-radius:6px;
   cursor:pointer;
-}
-
-.checkbox.loading::before{
-  content:"";
-  position:absolute;
-  inset:5px;
-
-  border:3px solid #cfe0ff;
-  border-top-color:#1a73e8;
-  border-radius:50%;
-
-  animation:spin .8s linear infinite;
 }
 
 .checkbox.verified{
   background:#34a853;
   border-color:#34a853;
+  position:relative;
 }
 
 .checkbox.verified::before{
   content:"✓";
+  color:#fff;
   position:absolute;
   inset:0;
-
   display:grid;
   place-items:center;
-
-  color:#fff;
-  font-size:20px;
   font-weight:900;
 }
 
@@ -182,161 +119,119 @@ body{
 
 .recaptcha-title{
   font-size:16px;
-  line-height:1.5;
-  color:#202124;
+  color:#222;
 }
 
 .recaptcha-side{
-  width:72px;
   text-align:center;
-  color:#7b8188;
   font-size:10px;
+  color:#777;
 }
 
 .logo{
   width:34px;
   height:34px;
-  margin:auto;
-  margin-bottom:4px;
-
+  border-radius:50%;
   display:grid;
   place-items:center;
-
-  border-radius:50%;
-
   background:
   conic-gradient(
-    from 210deg,
     #4285f4,
     #34a853,
     #fbbc05,
     #ea4335,
     #4285f4
   );
-
   color:#fff;
+  margin:auto auto 5px;
 }
 
 .challenge{
-  margin-top:10px;
-  overflow:hidden;
-  max-height:0;
-  opacity:0;
-  transform:translateY(-8px);
-
-  transition:
-  max-height .55s ease,
-  opacity .35s ease,
-  transform .35s ease;
+  margin-top:14px;
+  display:none;
 }
 
 .challenge.show{
-  max-height:620px;
-  opacity:1;
-  transform:translateY(0);
+  display:block;
 }
 
 .challenge-head{
   background:
   linear-gradient(
     180deg,
-    #2d7ef7,
-    #1967d2
+    #ff95be,
+    #ff6fa8
   );
 
   color:#fff;
-  padding:14px 16px 12px;
-  border-radius:14px 14px 0 0;
+  padding:16px;
+  border-radius:
+  18px 18px 0 0;
 }
 
 .challenge-label{
   font-size:13px;
-  margin-bottom:4px;
+  margin-bottom:5px;
 }
 
 .challenge-title{
-  font-size:21px;
+  font-size:20px;
   font-weight:700;
-  line-height:1.45;
 }
 
 .challenge-body{
   background:#fff;
-  border:1px solid var(--line);
-  border-top:none;
-  border-radius:0 0 14px 14px;
-  overflow:hidden;
+  border-radius:
+  0 0 18px 18px;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:
+  repeat(3,1fr);
   gap:8px;
   padding:12px;
-  background:#f8f9fa;
 }
 
 .tile{
   aspect-ratio:1;
-  border-radius:10px;
-  border:2px solid #dfe3e7;
-
-  background:
-  radial-gradient(
-    circle at 20% 20%,
-    rgba(255,255,255,.95),
-    rgba(255,255,255,.7) 45%,
-    rgba(250,246,248,.95)
-  );
+  border-radius:16px;
+  background:#fff7fb;
+  border:2px solid #f4d7e3;
 
   display:grid;
   place-items:center;
-  font-size:40px;
+
+  font-size:38px;
   cursor:pointer;
 }
 
 .tile.selected{
-  border-color:#1a73e8;
-  box-shadow:
-  0 0 0 3px rgba(26,115,232,.14);
+  background:#ffe3ee;
+  border-color:#ff6fa8;
 }
 
-.tile.selected::after{
-  content:"✓";
-
-  position:absolute;
-  top:6px;
-  left:6px;
-
-  width:24px;
-  height:24px;
-
-  display:grid;
-  place-items:center;
-
-  border-radius:50%;
-  background:#1a73e8;
-  color:#fff;
-}
-  .challenge-actions{
+.challenge-actions{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  padding:10px 12px;
-  background:#fff;
-}
-
-.challenge-note{
-  font-size:12px;
-  color:#7a7f86;
+  align-items:center;
+  padding:12px;
 }
 
 .verify-btn{
   border:none;
-  background:linear-gradient(180deg,#2d7ef7,#1967d2);
+  background:
+  linear-gradient(
+    180deg,
+    #ff95be,
+    #ff6fa8
+  );
+
   color:#fff;
-  border-radius:8px;
-  padding:12px 20px;
+  padding:
+  12px 22px;
+
+  border-radius:12px;
   font-size:15px;
   font-weight:700;
   cursor:pointer;
@@ -344,7 +239,7 @@ body{
 
 .letter-wrap{
   position:absolute;
-  inset:54px 14px 14px;
+  inset:55px 16px 16px;
   display:flex;
   justify-content:center;
   align-items:flex-end;
@@ -353,74 +248,73 @@ body{
 
 .letter-card{
   width:100%;
-  max-width:360px;
-  background:rgba(255,255,255,.97);
-  border-radius:26px;
+  max-width:350px;
+
+  background:
+  rgba(255,255,255,.96);
+
+  border-radius:28px;
+
   overflow:hidden;
 
   opacity:0;
-  transform:translateY(60px) scale(.97);
 
-  transition:
-  transform .7s cubic-bezier(.2,.8,.2,1),
-  opacity .55s ease;
+  transform:
+  translateY(70px)
+  scale(.95);
 
-  pointer-events:none;
-
-  box-shadow:
-  0 28px 80px rgba(0,0,0,.18);
+  transition:.7s;
 }
 
 .letter-card.show{
   opacity:1;
-  transform:translateY(0) scale(1);
-  pointer-events:auto;
+  transform:
+  translateY(0)
+  scale(1);
 }
 
 .letter-top{
-  padding:18px;
+  padding:22px;
   text-align:center;
 
   background:
   linear-gradient(
     135deg,
     #ffe7ef,
-    #f9f0ff,
+    #fff6fa,
     #eef5ff
   );
 }
 
 .hero-emoji{
-  font-size:64px;
+  font-size:70px;
 }
 
 .hero-heart{
-  font-size:30px;
+  font-size:32px;
 }
 
 .hero-title{
-  font-size:24px;
+  font-size:25px;
   font-weight:800;
-  color:#5b4450;
+  color:#6d4f5c;
 }
 
 .letter-scroll{
-  padding:18px;
-  overflow:auto;
+  padding:20px;
 }
 
 .letter-text{
-  margin:0;
-  white-space:pre-line;
   line-height:2;
-  color:#43484d;
+  white-space:pre-line;
+  color:#444;
 }
 
 .letter-sign{
-  margin-top:16px;
   text-align:center;
+  margin-top:20px;
+  color:#cc6c92;
   font-weight:700;
-  color:#8a4b64;
 }
 
 /* Music Player */
@@ -428,23 +322,23 @@ body{
 .music-player{
   display:none;
   margin-top:22px;
-  padding:14px;
-  border-radius:24px;
 
   background:
-  linear-gradient(
-    180deg,
-    rgba(255,255,255,.97),
-    rgba(255,240,246,.95)
-  );
+  rgba(255,255,255,.92);
 
-  border:1px solid rgba(255,192,203,.4);
+  border:1px solid
+  rgba(255,182,193,.35);
 
-  box-shadow:
-  0 12px 30px rgba(255,182,193,.25);
+  border-radius:24px;
+
+  padding:14px;
 
   align-items:center;
   gap:14px;
+
+  box-shadow:
+  0 12px 35px
+  rgba(255,182,193,.22);
 }
 
 .music-player.show{
@@ -452,20 +346,20 @@ body{
 }
 
 .music-cover{
-  width:58px;
-  height:58px;
+  width:60px;
+  height:60px;
   border-radius:18px;
 
   display:grid;
   place-items:center;
 
-  font-size:28px;
+  font-size:30px;
 
   background:
   linear-gradient(
     135deg,
-    #ffdce8,
-    #fff4f8
+    #ffdbe7,
+    #fff1f7
   );
 }
 
@@ -474,18 +368,17 @@ body{
 }
 
 .music-title{
-  font-size:16px;
   font-weight:800;
-  color:#c26b89;
+  color:#cb7296;
   margin-bottom:10px;
 }
 
 .music-bar{
   width:100%;
   height:6px;
+  background:#ffe4ef;
   border-radius:999px;
   overflow:hidden;
-  background:#ffe4ee;
 }
 
 .music-progress{
@@ -494,141 +387,469 @@ body{
   background:
   linear-gradient(
     90deg,
-    #ffb6c1,
-    #ff8fb1
+    #ffb8d1,
+    #ff88af
   );
 }
 
 .music-btn{
-  width:48px;
-  height:48px;
+  width:50px;
+  height:50px;
   border:none;
   border-radius:50%;
   cursor:pointer;
-
   background:
   linear-gradient(
     180deg,
-    #ffd7e6,
-    #ffb7cc
+    #ffd9e6,
+    #ffb9cf
   );
 
   color:#fff;
   font-size:18px;
 }
-
-.hearts{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  pointer-events:none;
-}
-
-.heart{
-  position:absolute;
-  top:-40px;
-  animation:fall 7s linear infinite;
-}
-
-@keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
-}
-
-@keyframes fall{
-  from{
-    transform:translateY(-40px);
-    opacity:0;
-  }
-
-  to{
-    transform:translateY(900px);
-    opacity:.15;
-  }
-}
 </style>
 </head>
+  <div class="hearts" id="hearts"></div>
 
-<body>
+<div class="screen">
+  <div class="captcha-shell" id="captchaShell">
+
+    <div class="card recaptcha">
+      <div class="checkbox" id="checkbox"></div>
+
+      <div class="recaptcha-main">
+        <div class="recaptcha-title" id="mainTitle">
+          من ڕۆبۆت نیم، بەڵکو عاشقی تۆم 💖
+        </div>
+      </div>
+
+      <div class="recaptcha-side">
+        <div class="logo">✓</div>
+        <div>reCAPTCHA</div>
+        <div>Love</div>
+      </div>
+    </div>
+
+    <div class="challenge" id="challenge">
+      <div class="challenge-head">
+        <div class="challenge-label">
+          هەڵبژاردن
+        </div>
+
+        <div class="challenge-title">
+          هەموو دڵەکان هەڵبژێرە 💖
+        </div>
+      </div>
+
+      <div class="challenge-body">
+
+        <div class="grid">
+          <div class="tile" data-index="0">🌸</div>
+          <div class="tile" data-index="1">💖</div>
+          <div class="tile" data-index="2">🦋</div>
+
+          <div class="tile" data-index="3">☁️</div>
+          <div class="tile" data-index="4">💕</div>
+          <div class="tile" data-index="5">🐼</div>
+
+          <div class="tile" data-index="6">🎀</div>
+          <div class="tile" data-index="7">💗</div>
+          <div class="tile" data-index="8">🌙</div>
+        </div>
+
+        <div class="challenge-actions">
+          <div>
+            Love Captcha 💖
+          </div>
+
+          <button
+            class="verify-btn"
+            id="verifyBtn"
+          >
+            سەلماندن
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="letter-wrap">
+
+  <div
+    class="letter-card"
+    id="letterCard"
+  >
+
+    <div class="letter-top">
+      <div class="hero-emoji">
+        🐼💖
+      </div>
+
+      <div class="hero-heart">
+        💗
+      </div>
+
+      <div class="hero-title">
+        تاقانەکەی دڵم
+      </div>
+    </div>
+
+    <div class="letter-scroll">
+
+      <p
+        class="letter-text"
+        id="letterText"
+      >
+      </p>
+
+      <div class="letter-sign">
+        لەگەڵ هەموو خۆشەویستییەکم 💕
+      </div>
+
+      <div
+        class="music-player"
+        id="musicPlayer"
+      >
+
+        <div class="music-cover">
+          🎵
+        </div>
+
+        <div class="music-info">
+          <div class="music-title">
+            Our Song 💖
+          </div>
+
+          <div class="music-bar">
+            <div
+              class="music-progress"
+              id="musicProgress"
+            ></div>
+          </div>
+        </div>
+
+        <button
+          class="music-btn"
+          id="playBtn"
+        >
+          ❚❚
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
 <audio id="bgMusic" loop>
-  <source src="1000054433.mp4" type="audio/mp4">
+  <source
+    src="1000054433.mp4"
+    type="audio/mp4"
+  >
 </audio>
 
 <script>
+
+const checkbox =
+document.getElementById(
+"checkbox"
+);
+
+const challenge =
+document.getElementById(
+"challenge"
+);
+
+const verifyBtn =
+document.getElementById(
+"verifyBtn"
+);
+
+const letterCard =
+document.getElementById(
+"letterCard"
+);
+
+const letterText =
+document.getElementById(
+"letterText"
+);
+
+const hearts =
+document.getElementById(
+"hearts"
+);
+
 const bgMusic =
-document.getElementById("bgMusic");
-
-function showLetter(){
-  spawnHearts();
-
-  setTimeout(() => {
-    letterCard.classList.add("show");
-
-    const player =
-    document.getElementById(
-      "musicPlayer"
-    );
-
-    if(player){
-      player.classList.add("show");
-    }
-
-    bgMusic.play().catch(() => {});
-  },180);
-}
-
-document.addEventListener(
-  "click",
-  () => {
-    if(
-      verified &&
-      bgMusic.paused
-    ){
-      bgMusic.play();
-    }
-  }
+document.getElementById(
+"bgMusic"
 );
 
 const playBtn =
 document.getElementById(
-  "playBtn"
+"playBtn"
 );
 
-const progress =
+const musicProgress =
 document.getElementById(
-  "musicProgress"
+"musicProgress"
 );
 
-if(playBtn){
-  playBtn.onclick = () => {
-    if(bgMusic.paused){
-      bgMusic.play();
-      playBtn.textContent = "❚❚";
-    }else{
-      bgMusic.pause();
-      playBtn.textContent = "▶";
-    }
-  };
+const musicPlayer =
+document.getElementById(
+"musicPlayer"
+);
+
+const tiles =
+[
+...document.querySelectorAll(
+".tile"
+)
+];
+
+const correct =
+[1,4,7];
+
+const selected =
+new Set();
+
+let verified =
+false;
+
+const message =
+`
+تاقانەکەی دڵم 💖
+
+تۆ جوانترین ڕووناکی ژیانمی.
+هەر کاتێ ناوت دێتە سەر زمانی من،
+دڵم پڕ لە ئارامی دەبێت.
+
+بوونت لەگەڵمدا
+وەک مانگەشەوێکی ئارامە،
+وەک گوڵێکی جوانە
+لە ناو باخچەی دڵم.
+
+سوپاس بۆ خەندەکانت،
+سوپاس بۆ خۆشەویستییەکانت،
+سوپاس بۆ هەموو ئەو چرکەساتانەی
+کە ژیانم جوانتر کردووە.
+
+خۆشمدەوێیت...
+ئەوەندەی
+وشەکان ناتوانن باس بکەن. 💕
+`;
+
+letterText.textContent =
+message;
+
+checkbox.onclick =
+() => {
+  if(verified)
+  return;
+
+  challenge.classList
+  .toggle("show");
+};
+
+tiles.forEach(
+tile => {
+
+tile.onclick = () => {
+
+if(verified)
+return;
+
+const i =
+Number(
+tile.dataset.index
+);
+
+if(
+selected.has(i)
+){
+selected.delete(i);
+
+tile.classList.remove(
+"selected"
+);
+
+}else{
+
+selected.add(i);
+
+tile.classList.add(
+"selected"
+);
+
 }
 
-bgMusic.addEventListener(
-  "timeupdate",
-  () => {
-    if(!bgMusic.duration) return;
+};
 
-    const p =
-      (bgMusic.currentTime /
-       bgMusic.duration) * 100;
+});
 
-    if(progress){
-      progress.style.width =
-      p + "%";
-    }
-  }
+verifyBtn.onclick =
+() => {
+
+if(
+selected.size !== 3
+){
+return;
+}
+
+const ok =
+correct.every(
+x =>
+selected.has(x)
 );
+
+if(!ok)
+return;
+
+verified = true;
+
+checkbox.classList
+.add("verified");
+
+challenge.classList
+.remove("show");
+
+document
+.getElementById(
+"mainTitle"
+)
+.textContent =
+"سەلمێندرا بە سەرکەوتوویی 💖";
+
+spawnHearts();
+
+setTimeout(
+() => {
+
+letterCard
+.classList
+.add("show");
+
+musicPlayer
+.classList
+.add("show");
+
+bgMusic.play()
+.catch(()=>{});
+
+},
+700
+);
+
+};
+
+function spawnHearts(){
+
+for(
+let i=0;
+i<25;
+i++
+){
+
+const heart =
+document.createElement(
+"div"
+);
+
+heart.className =
+"heart";
+
+heart.innerHTML =
+[
+"💖",
+"💕",
+"💗",
+"✨"
+][
+Math.floor(
+Math.random()*4
+)
+];
+
+heart.style.left =
+Math.random()*100
++"%";
+
+heart.style.fontSize =
+(
+20+
+Math.random()*20
+)+"px";
+
+heart.style.animationDuration =
+(
+5+
+Math.random()*5
+)+"s";
+
+hearts.appendChild(
+heart
+);
+
+}
+
+}
+
+playBtn.onclick =
+() => {
+
+if(
+bgMusic.paused
+){
+
+bgMusic.play();
+
+playBtn.innerHTML =
+"❚❚";
+
+}else{
+
+bgMusic.pause();
+
+playBtn.innerHTML =
+"▶";
+
+}
+
+};
+
+bgMusic.addEventListener(
+"timeupdate",
+() => {
+
+if(
+!bgMusic.duration
+)
+return;
+
+const p =
+(
+bgMusic.currentTime
+/
+bgMusic.duration
+)
+*100;
+
+musicProgress
+.style.width =
+p + "%";
+
+}
+);
+
 </script>
 
 </body>
 </html>
+<body>
+  
