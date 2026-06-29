@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تێستی ڕۆبۆت 💖</title>
+    <title>reCAPTCHA Verification</title>
     <style>
+        :root {
+            --primary-color: #1a73e8;
+            --primary-hover: #1557b0;
+            --love-color: #e91e63;
+            --love-hover: #c2185b;
+            --bg-color: #f8f9fa;
+            --text-main: #3c4043;
+            --border-color: #dadce0;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -13,7 +23,7 @@
         }
 
         body {
-            background-color: #e5e5e5;
+            background-color: #f1f3f4;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,321 +31,344 @@
             padding: 20px;
         }
 
-        .container {
+        .captcha-container {
             width: 100%;
-            max-width: 380px;
+            max-width: 360px;
             background: #ffffff;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* بەشی یەکەم: چێکبۆکسەکە */
-        .captcha-box {
+        /* بەشی یەکەم: چێکبۆکسە فەرمییەکە */
+        .captcha-anchor {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border: 1px solid #d3d3d3;
             background: #f9f9f9;
-            padding: 15px 20px;
+            border: 1px solid #d3d3d3;
             border-radius: 3px;
+            padding: 16px;
+            box-shadow: 0 0 4px rgba(0,0,0,0.05);
         }
 
-        .checkbox-container {
+        .anchor-content {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             cursor: pointer;
+            user-select: none;
         }
 
-        .custom-checkbox {
-            width: 24px;
-            height: 24px;
+        .anchor-checkbox {
+            width: 28px;
+            height: 28px;
             border: 2px solid #c1c1c1;
             border-radius: 2px;
             background: #fff;
             position: relative;
-            transition: 0.2s;
+            transition: all 0.2s;
         }
 
-        .checkbox-container:hover .custom-checkbox {
+        .anchor-content:hover .anchor-checkbox {
             border-color: #b0b0b0;
         }
 
-        .captcha-text {
-            font-size: 15px;
-            color: #333;
+        .anchor-checkbox.loading {
+            border-radius: 50%;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            animation: spin 0.8s linear infinite;
+        }
+
+        .anchor-text {
+            font-size: 14px;
+            color: #202124;
             font-weight: 500;
         }
 
-        .recaptcha-logo {
+        .brand-logo {
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 10px;
-            color: #555;
+            font-size: 8px;
+            color: #5f6368;
+            font-weight: bold;
         }
 
-        .recaptcha-logo svg {
-            width: 26px;
-            height: 26px;
+        .brand-logo svg {
+            width: 32px;
+            height: 32px;
             margin-bottom: 2px;
         }
 
-        /* بەشی دووەم: تۆڕی وێنەکان */
-        .grid-container {
+        /* بەشی دووەم: پۆپئەپی تۆڕی وێنەکان */
+        .grid-window {
             display: none;
+            animation: scaleUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         .grid-header {
-            background: #2196F3;
+            background: var(--primary-color);
             color: white;
-            padding: 15px;
-            margin: -20px -20px 15px -20px;
+            padding: 20px;
+            margin: -24px -24px 20px -24px;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
         }
 
         .grid-header h3 {
-            font-size: 15px;
-            font-weight: normal;
-            line-height: 1.4;
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.9;
         }
 
         .grid-header strong {
-            font-size: 20px;
+            font-size: 22px;
             display: block;
-            margin-top: 2px;
+            margin-top: 4px;
+            font-weight: 700;
         }
 
-        .captcha-grid {
+        .image-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            margin-bottom: 15px;
+            gap: 6px;
+            margin-bottom: 20px;
         }
 
-        .grid-item {
+        .grid-cell {
             aspect-ratio: 1;
-            background: #f0f0f0;
+            background: #f1f3f4;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 32px;
+            font-size: 36px;
             cursor: pointer;
             position: relative;
             user-select: none;
-            transition: transform 0.1s;
+            border: 2px solid transparent;
+            transition: all 0.15s ease;
         }
 
-        .grid-item:active {
+        .grid-cell:hover {
+            opacity: 0.9;
+        }
+
+        .grid-cell.selected {
+            border-color: var(--primary-color);
             transform: scale(0.95);
         }
 
-        .grid-item.selected::after {
+        .grid-cell.selected::after {
             content: "✓";
             position: absolute;
-            top: 5px;
-            right: 5px;
-            background: #2196F3;
+            top: 4px;
+            right: 4px;
+            background: var(--primary-color);
             color: white;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
-            font-size: 12px;
+            font-size: 11px;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-        }
-        
-        .grid-item.selected {
-            outline: 2px solid #2196F3;
-            outline-offset: -2px;
-            opacity: 0.8;
         }
 
         .grid-footer {
             display: flex;
             justify-content: flex-end;
-            border-top: 1px solid #eee;
-            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
         }
 
-        .verify-btn {
-            background: #2196F3;
+        .action-btn {
+            background: var(--primary-color);
             color: white;
             border: none;
-            padding: 8px 20px;
+            padding: 10px 24px;
             font-size: 14px;
-            font-weight: bold;
-            border-radius: 3px;
+            font-weight: 600;
+            border-radius: 4px;
             cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        .verify-btn:hover {
-            background: #1e88e5;
+        .action-btn:hover {
+            background: var(--primary-hover);
         }
 
-        /* بەشی سێیەم: نامە ڕۆمانسیەکە */
-        .success-container {
+        /* بەشی سێیەم: کڵاسی نامە پڕۆفیشناڵەکە */
+        .success-window {
             display: none;
             text-align: center;
-            animation: fadeIn 0.5s ease forwards;
+            animation: fadeIn 0.6s ease forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .success-status {
-            color: #4CAF50;
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 15px;
-            display: flex;
+        .status-badge {
+            color: #1e73be;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 20px;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 5px;
+            gap: 6px;
+            background: #e8f0fe;
+            padding: 6px 16px;
+            border-radius: 20px;
         }
 
-        .love-letter {
-            background: #fff5f7;
-            border: 1px solid #ffd1dc;
-            border-radius: 8px;
-            padding: 20px;
+        .card-letter {
+            background: linear-gradient(145deg, #ffffff, #fff5f7);
+            border: 1px solid #ffe3e9;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.05);
         }
 
-        .love-letter h2 {
-            color: #d81b60;
-            font-size: 18px;
-            margin-bottom: 12px;
+        .card-letter h2 {
+            color: var(--love-color);
+            font-size: 20px;
+            margin-bottom: 16px;
+            font-weight: 700;
         }
 
-        .love-letter p {
+        .card-letter p {
             font-size: 14px;
-            color: #444;
-            line-height: 1.7;
+            color: var(--text-main);
+            line-height: 1.8;
             text-align: justify;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .illustration-img {
-            width: 120px;
+        .main-img {
+            width: 140px;
             height: auto;
-            margin: 10px auto;
+            margin: 0 auto 16px auto;
             display: block;
+            border-radius: 50%;
+            background: #fff;
+            padding: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            animation: pulseHeart 2s infinite alternate;
         }
 
-        .reply-btn {
-            background: #d81b60;
+        .submit-love-btn {
+            background: var(--love-color);
             color: white;
             border: none;
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             font-size: 15px;
-            font-weight: bold;
-            border-radius: 25px;
+            font-weight: 700;
+            border-radius: 30px;
             cursor: pointer;
-            margin-top: 10px;
-            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
+            transition: all 0.3s ease;
         }
 
-        .reply-btn:hover {
-            background: #c2185b;
-            transform: scale(1.02);
+        .submit-love-btn:hover {
+            background: var(--love-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
         }
+
+        /* ئەنیمەیشنەکان */
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes scaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseHeart { from { transform: scale(1); } to { transform: scale(1.05); } }
     </style>
 </head>
 <body>
 
-<audio id="bgMusic" loop>
-    <source src="74896a2c015d8bd377bdf7770c465185.mp3" type="audio/mpeg">
-</audio>
+<audio id="bgMusic" loop src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav"></audio>
 
-<div class="container" id="mainContainer">
+<div class="captcha-container" id="mainContainer">
     
-    <div class="captcha-box" id="step1">
-        <div class="checkbox-container" onclick="openCaptchaGrid()">
-            <div class="custom-checkbox" id="checkbox"></div>
-            <span class="captcha-text">من ڕۆبۆت نیم، بەڵکوو ئاشقی تۆم ❤️🥺</span>
+    <div class="captcha-anchor" id="step1">
+        <div class="anchor-content" onclick="startLoading()">
+            <div class="anchor-checkbox" id="checkbox"></div>
+            <span class="anchor-text">من ڕۆبۆت نیم، بەڵکوو ئاشقی تۆم ❤️🥺</span>
         </div>
-        <div class="recaptcha-logo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="#2196F3"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 2c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 3v4h3v2h-5V7h2zm-3 8h4v2h-4v-2z"/></svg>
+        <div class="brand-logo">
+            <svg viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            </svg>
             <span>reCAPTCHA</span>
         </div>
     </div>
 
-    <div class="grid-container" id="step2">
+    <div class="grid-window" id="step2">
         <div class="grid-header">
             <h3>هەموو ئەو چوارگۆشانە هەڵبژێرە کە</h3>
             <strong>دڵی 💖 تێدایە</strong>
         </div>
         
-        <div class="captcha-grid">
-            <div class="grid-item" onclick="toggleSelect(this)">🦋</div>
-            <div class="grid-item is-heart" onclick="toggleSelect(this)">💖</div>
-            <div class="grid-item" onclick="toggleSelect(this)">🌸</div>
+        <div class="image-grid">
+            <div class="grid-cell" onclick="selectCell(this)">🦋</div>
+            <div class="grid-cell is-correct" onclick="selectCell(this)">💖</div>
+            <div class="grid-cell" onclick="selectCell(this)">🌸</div>
             
-            <div class="grid-item" onclick="toggleSelect(this)">🎀</div>
-            <div class="grid-item is-heart" onclick="toggleSelect(this)">💜</div>
-            <div class="grid-item" onclick="toggleSelect(this)">🐱</div>
+            <div class="grid-cell" onclick="selectCell(this)">🎀</div>
+            <div class="grid-cell is-correct" onclick="selectCell(this)">💜</div>
+            <div class="grid-cell" onclick="selectCell(this)">🐱</div>
             
-            <div class="grid-item" onclick="toggleSelect(this)">☕</div>
-            <div class="grid-item" onclick="toggleSelect(this)">🍓</div>
-            <div class="grid-item is-heart" onclick="toggleSelect(this)">💝</div>
+            <div class="grid-cell" onclick="selectCell(this)">☕</div>
+            <div class="grid-cell" onclick="selectCell(this)">🍓</div>
+            <div class="grid-cell is-correct" onclick="selectCell(this)">💝</div>
         </div>
 
         <div class="grid-footer">
-            <button class="verify-btn" onclick="verifyCaptcha()">سەلماندن</button>
+            <button class="action-btn" onclick="validateSelection()">سەلماندن</button>
         </div>
     </div>
 
-    <div class="success-container" id="step3">
-        <div class="success-status">
-            <span>✓ سەلمێندرا بە سەرکەوتوویی 💖</span>
-        </div>
-        <div class="love-letter">
+    <div class="success-window" id="step3">
+        <div class="status-badge">✓ ناسنامەی خۆشەویستی سەلمێندرا</div>
+        <div class="card-letter">
             <h2>تاقانەکەی دڵم! 💖</h2>
-            <img src="1000054434.jpg" alt="Bears Hugging" class="illustration-img">
+            
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>👩‍❤️‍👨</text></svg>" class="main-img" alt="Love Illustration">
+            
             <p>
                 لەو ڕۆژەوەی هاتوویتە ژیانمەوە، هەموو شتێک جوانی و ئارامییەکی تایبەتی گرتووە! 🥺 تەنانەت بیرکردنەوەش لێت، زەردەخەنە دەخاتە سەر لێوەکانم. تۆ نەک هەر خۆشەویستمی، بەڵکوو ئارامیی ڕۆح و جوانترین ڕێکەوتی ژیانمی. باوەشت تاکە نیشتیمانە کە دەمەوێت بۆ هەمیشە تێیدا بمێنمەوە. بێسنوور ئاشقتم! ✨
             </p>
-            <button class="reply-btn" onclick="finalAction()">منیش ئاشقتم 💖</button>
+            <button class="submit-love-btn" onclick="successEnd()">منیش ئاشقتم 💖</button>
         </div>
     </div>
 
 </div>
 
 <script>
-    function playMusic() {
-        const music = document.getElementById('bgMusic');
-        music.play().catch(error => {
-            console.log("لێدانی دەنگ پێویستی بە کلیکی بەکارهێنەر هەیە.");
-        });
-    }
-
-    function openCaptchaGrid() {
-        playMusic();
-        document.getElementById('checkbox').style.background = '#f0f0f0';
+    function startLoading() {
+        const box = document.getElementById('checkbox');
+        box.classList.add('loading');
         
+        // دەستپێکردنی دەنگ لەگەڵ یەکەم کلیک
+        document.getElementById('bgMusic').play().catch(e => console.log("Audio play blocked"));
+
         setTimeout(() => {
             document.getElementById('step1').style.display = 'none';
             document.getElementById('step2').style.display = 'block';
-        }, 400);
+        }, 1000);
     }
 
-    function toggleSelect(element) {
+    function selectCell(element) {
         element.classList.toggle('selected');
     }
 
-    function verifyCaptcha() {
-        const totalHearts = document.querySelectorAll('.grid-item.is-heart').length;
-        const selectedHearts = document.querySelectorAll('.grid-item.is-heart.selected').length;
-        const selectedWrong = document.querySelectorAll('.grid-item.selected:not(.is-heart)').length;
+    function validateSelection() {
+        const totalCorrect = document.querySelectorAll('.grid-cell.is-correct').length;
+        const selectedCorrect = document.querySelectorAll('.grid-cell.is-correct.selected').length;
+        const selectedWrong = document.querySelectorAll('.grid-cell.selected:not(.is-correct)').length;
 
-        if (selectedHearts === totalHearts && selectedWrong === 0) {
+        if (selectedCorrect === totalCorrect && selectedWrong === 0) {
             document.getElementById('step2').style.display = 'none';
             document.getElementById('step3').style.display = 'block';
         } else {
@@ -343,8 +376,8 @@
         }
     }
 
-    function finalAction() {
-        alert('دڵی منییی! 🥰 ڕۆژێکی خۆش بۆ تۆ! ❤️');
+    function successEnd() {
+        alert('تۆ گەورەترین دیاری خوادی بۆ من! 🥰❤️');
     }
 </script>
 
