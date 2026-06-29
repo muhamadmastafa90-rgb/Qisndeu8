@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>reCAPTCHA Verification 💖</title>
+    <title>تێستی ڕۆبۆت 💖</title>
     <style>
         :root {
             --primary-color: #1a73e8;
@@ -193,15 +193,14 @@
 
         .main-img {
             width: 100%;
-            max-width: 250px;
+            max-width: 220px;
             height: auto;
             margin: 10px auto;
             display: block;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
-        /* دیزاینی پلەیەرەکە ڕێک وەک وێنەکە */
+        /* پلەیەرەکە */
         .music-player {
             background-color: var(--player-bg);
             border-radius: 16px;
@@ -285,10 +284,12 @@
 </head>
 <body>
 
-<audio id="bgMusic" src="http://googleusercontent.com/file_content/0"></audio>
+<!-- لێرەدا ناوی فایلی موزیکەکەی سەر گیتهابەکەت بنووسە لەگەڵ پاشگرەکەی (بۆ نموونە .mp3) -->
+<audio id="bgMusic" src="74896a2c015d8bd377bdf7770c465185_3.mp3"></audio>
 
 <div class="captcha-container" id="mainContainer">
     
+    <!-- هەنگاوی یەکەم -->
     <div class="captcha-anchor" id="step1">
         <div class="anchor-content" onclick="openGrid()">
             <div class="anchor-checkbox" id="checkbox"></div>
@@ -300,6 +301,7 @@
         </div>
     </div>
 
+    <!-- هەنگاوی دووەم -->
     <div class="grid-window" id="step2">
         <div class="grid-header">
             <h3>هەموو ئەو چوارگۆشانە هەڵبژێرە کە</h3>
@@ -321,17 +323,20 @@
         </div>
     </div>
 
+    <!-- هەنگاوی سێیەم -->
     <div class="success-window" id="step3">
         <div class="card-letter">
             <h2>تاقانەکەی دڵم! 💖</h2>
-            <img src="https://images.squarespace-cdn.com/content/v1/5e9d9b626d03ca4dcdbb6f9f/1684347714392-4B6Y97G9L3N9V6M8N54X/image-asset.jpeg" class="main-img" alt="SaqaW bm">
+            <!-- لێرەدا ناوی فایلی وێنەکەی سەر گیتهابەکەت بە تەواوی بنووسە (بۆ نموونە لە کۆتاییەکەیدا .jpg یان .png دابنێ) -->
+            <img src="IMG_20260626_051942_2.jpg" class="main-img" alt="Bears">
             <p>
-                لەو ڕۆژەوەی هاتوویتە ژیانمەوە، هەموو شتێک جوانی و ئارامییەکی تایبەتی گرتووە! 🥺 تەنانەت بیرکردنەوەش لێت، زەردەخەنە دەخاتە سەر لێوەکانم. تۆ نەک هەر خۆشەویستمی، بەڵکوو ئارامیی ڕۆح و جوانترین ڕێکەوتی ژیانمی.
+                لەو ڕۆژەوەی هاتوویتە ژیانمەوە، هەموو شتێک جوانی و ئارامییەکی تایبەتی گرتووە! 🥺 تەنانەت بیرکردنەوەش لێت، زەردەخەنە دەخاتە سەر لێوەکانم.
             </p>
         </div>
 
         <div class="music-player">
-            <img src="https://images.squarespace-cdn.com/content/v1/5e9d9b626d03ca4dcdbb6f9f/1684347714392-4B6Y97G9L3N9V6M8N54X/image-asset.jpeg" class="player-cover" alt="Cover">
+            <!-- وێنەی سەر پلەیەرەکەش هەمان ناوی فایلی وێنەکەی سەر گیتهابە -->
+            <img src="IMG_20260626_051942_2.jpg" class="player-cover" alt="Cover">
             <div class="player-info">
                 <div class="track-title">خۆشەویستی من و تۆ</div>
                 <div class="time-controls">
@@ -376,7 +381,7 @@
         if (selectedCorrect === totalCorrect && selectedWrong === 0) {
             document.getElementById('step2').style.display = 'none';
             document.getElementById('step3').style.display = 'block';
-            audio.play().catch(e => console.log("Audio trigger required"));
+            audio.play().catch(e => console.log("Audio play blocked initially"));
         } else {
             alert('تکایە سەرجەم ئەو چوارگۆشانە هەڵبژێرە کە دڵیان تێدایە! 🥺');
         }
