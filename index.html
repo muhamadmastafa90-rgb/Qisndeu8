@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تێستی ڕۆبۆت 💖</title>
+    <title>reCAPTCHA Verification 💖</title>
     <style>
         :root {
             --primary-color: #1a73e8;
@@ -192,14 +192,16 @@
         }
 
         .main-img {
-            width: 130px;
+            width: 100%;
+            max-width: 250px;
             height: auto;
             margin: 10px auto;
             display: block;
             border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
-        /* دیزاینی پلەیەرەکەت لەم بەشەدایە */
+        /* دیزاینی پلەیەرەکە ڕێک وەک وێنەکە */
         .music-player {
             background-color: var(--player-bg);
             border-radius: 16px;
@@ -283,7 +285,7 @@
 </head>
 <body>
 
-<audio id="bgMusic" src="74896a2c015d8bd377bdf7770c465185.mp3"></audio>
+<audio id="bgMusic" src="http://googleusercontent.com/file_content/0"></audio>
 
 <div class="captcha-container" id="mainContainer">
     
@@ -322,16 +324,16 @@
     <div class="success-window" id="step3">
         <div class="card-letter">
             <h2>تاقانەکەی دڵم! 💖</h2>
-            <img src="1000054434.jpg" class="main-img" alt="Bears">
+            <img src="https://images.squarespace-cdn.com/content/v1/5e9d9b626d03ca4dcdbb6f9f/1684347714392-4B6Y97G9L3N9V6M8N54X/image-asset.jpeg" class="main-img" alt="SaqaW bm">
             <p>
                 لەو ڕۆژەوەی هاتوویتە ژیانمەوە، هەموو شتێک جوانی و ئارامییەکی تایبەتی گرتووە! 🥺 تەنانەت بیرکردنەوەش لێت، زەردەخەنە دەخاتە سەر لێوەکانم. تۆ نەک هەر خۆشەویستمی، بەڵکوو ئارامیی ڕۆح و جوانترین ڕێکەوتی ژیانمی.
             </p>
         </div>
 
         <div class="music-player">
-            <img src="1000054434.jpg" class="player-cover" alt="Cover">
+            <img src="https://images.squarespace-cdn.com/content/v1/5e9d9b626d03ca4dcdbb6f9f/1684347714392-4B6Y97G9L3N9V6M8N54X/image-asset.jpeg" class="player-cover" alt="Cover">
             <div class="player-info">
-                <div class="track-title">Fuck Society</div>
+                <div class="track-title">خۆشەویستی من و تۆ</div>
                 <div class="time-controls">
                     <span id="currentTime">0:00</span>
                     <div class="progress-bar-container" onclick="seek(event)">
@@ -341,9 +343,9 @@
                 </div>
             </div>
             <div class="player-buttons">
-                <button class="control-btn">◀</button>
+                <button class="control-btn">⏮</button>
                 <button class="control-btn play-pause-btn" onclick="togglePlay()" id="playBtn">⏸</button>
-                <button class="control-btn">▶</button>
+                <button class="control-btn">⏭</button>
             </div>
         </div>
     </div>
