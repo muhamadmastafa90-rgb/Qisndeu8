@@ -1,471 +1,337 @@
 <!DOCTYPE html>
-<html lang="ckb" dir="rtl">
+<html lang="ku" dir="rtl">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تێستی ڕۆبۆت 💖</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        body {
+            background-color: #e5e5e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-<title>Love Captcha 💖</title>
+        .container {
+            width: 100%;
+            max-width: 380px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
 
-<style>
+        /* بەشی یەکەم: چێکبۆکسەکە */
+        .captcha-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #d3d3d3;
+            background: #f9f9f9;
+            padding: 15px 20px;
+            border-radius: 3px;
+        }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
 
-html,
-body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #c1c1c1;
+            border-radius: 2px;
+            background: #fff;
+            position: relative;
+            transition: 0.2s;
+        }
 
-  font-family:
-  -apple-system,
-  BlinkMacSystemFont,
-  "SF Pro Display",
-  "Segoe UI",
-  sans-serif;
+        .checkbox-container:hover .custom-checkbox {
+            border-color: #b0b0b0;
+        }
 
-  background:
-  linear-gradient(
-    180deg,
-    #fff7fa,
-    #ffeef5
-  );
-}
+        .captcha-text {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
 
-body{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
+        .recaptcha-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: #555;
+        }
 
-.phone{
-  width:100vw;
-  height:100dvh;
-  position:relative;
-  overflow:hidden;
+        .recaptcha-logo svg {
+            width: 26px;
+            height: 26px;
+            margin-bottom: 2px;
+        }
 
-  background:
-  linear-gradient(
-    180deg,
-    #fff,
-    #fff7fb
-  );
-}
+        /* بەشی دووەم: تۆڕی وێنەکان */
+        .grid-container {
+            display: none;
+        }
 
-@media (min-width:431px){
+        .grid-header {
+            background: #2196F3;
+            color: white;
+            padding: 15px;
+            margin: -20px -20px 15px -20px;
+        }
 
-  .phone{
-    width:390px;
-    height:844px;
-    border-radius:42px;
+        .grid-header h3 {
+            font-size: 15px;
+            font-weight: normal;
+            line-height: 1.4;
+        }
 
-    box-shadow:
-    0 30px 80px
-    rgba(255,182,193,.35);
-  }
+        .grid-header strong {
+            font-size: 20px;
+            display: block;
+            margin-top: 2px;
+        }
 
-}
+        .captcha-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            margin-bottom: 15px;
+        }
 
-.notch{
-  position:absolute;
-  top:14px;
-  left:50%;
-  transform:translateX(-50%);
+        .grid-item {
+            aspect-ratio: 1;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+            transition: transform 0.1s;
+        }
 
-  width:135px;
-  height:32px;
+        .grid-item:active {
+            transform: scale(0.95);
+        }
 
-  background:#111;
-  border-radius:999px;
-  z-index:100;
-}
+        .grid-item.selected::after {
+            content: "✓";
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #2196F3;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .grid-item.selected {
+            outline: 2px solid #2196F3;
+            outline-offset: -2px;
+            opacity: 0.8;
+        }
 
-.screen{
-  width:100%;
-  height:100%;
-  padding:
-  70px
-  18px
-  20px;
+        .grid-footer {
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
+        }
 
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-}
+        .verify-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+        }
 
-.card{
-  background:#fff;
+        .verify-btn:hover {
+            background: #1e88e5;
+        }
 
-  border-radius:28px;
+        /* بەشی سێیەم: نامە ڕۆمانسیەکە */
+        .success-container {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease forwards;
+        }
 
-  box-shadow:
-  0 15px 50px
-  rgba(255,182,193,.18);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-  overflow:hidden;
-}
+        .success-status {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
 
-.recaptcha{
-  padding:20px;
-}
+        .love-letter {
+            background: #fff5f7;
+            border: 1px solid #ffd1dc;
+            border-radius: 8px;
+            padding: 20px;
+        }
 
-.recaptcha-top{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
+        .love-letter h2 {
+            color: #d81b60;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
 
-.checkbox{
-  width:34px;
-  height:34px;
+        .love-letter p {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.7;
+            text-align: justify;
+            margin-bottom: 15px;
+        }
 
-  border:
-  2px solid
-  #d4d4d4;
+        .illustration {
+            font-size: 50px;
+            margin: 10px 0;
+        }
 
-  border-radius:10px;
+        .reply-btn {
+            background: #d81b60;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
 
-  display:grid;
-  place-items:center;
-
-  flex-shrink:0;
-  cursor:pointer;
-
-  transition:.3s;
-}
-
-.checkbox.verified{
-  background:#ff8fba;
-  border-color:#ff8fba;
-  color:#fff;
-  font-size:20px;
-  font-weight:700;
-}
-
-.recaptcha-title{
-  font-size:17px;
-  color:#444;
-  line-height:1.7;
-}
-
-.challenge{
-  display:none;
-  margin-top:18px;
-}
-
-.challenge.show{
-  display:block;
-}
-
-.challenge-head{
-  background:
-  linear-gradient(
-    180deg,
-    #ffb5d2,
-    #ff8fba
-  );
-
-  color:#fff;
-  padding:18px;
-}
-
-.challenge-label{
-  font-size:13px;
-  opacity:.9;
-}
-
-.challenge-title{
-  margin-top:6px;
-  font-size:20px;
-  line-height:1.6;
-  font-weight:700;
-}
-  </style>
+        .reply-btn:hover {
+            background: #c2185b;
+            transform: scale(1.02);
+        }
+    </style>
 </head>
 <body>
 
-<div class="phone">
-
-  <div class="notch"></div>
-
-  <div class="screen">
-
-    <div class="card recaptcha">
-
-      <div class="recaptcha-top">
-
-        <div
-          class="checkbox"
-          id="checkbox"
-        ></div>
-
-        <div
-          class="recaptcha-title"
-          id="mainTitle"
-        >
-          من ڕۆبۆت نیم، بەڵکو عاشقی تۆم 💖
+<div class="container" id="mainContainer">
+    
+    <div class="captcha-box" id="step1">
+        <div class="checkbox-container" onclick="openCaptchaGrid()">
+            <div class="custom-checkbox" id="checkbox"></div>
+            <span class="captcha-text">من ڕۆبۆت نیم، بەڵکوو ئاشقی تۆم ❤️🥺</span>
         </div>
-
-      </div>
-
-      <div
-        class="challenge"
-        id="challenge"
-      >
-
-        <div class="challenge-head">
-
-          <div class="challenge-label">
-            Love Captcha
-          </div>
-
-          <div class="challenge-title">
-            هەموو دڵەکان هەڵبژێرە 💖
-          </div>
-
+        <div class="recaptcha-logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#2196F3"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 2c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 3v4h3v2h-5V7h2zm-3 8h4v2h-4v-2z"/></svg>
+            <span>reCAPTCHA</span>
         </div>
-
-        <div class="grid">
-
-          <div class="tile" data-i="0">🦋</div>
-          <div class="tile" data-i="1">💖</div>
-          <div class="tile" data-i="2">🌸</div>
-
-          <div class="tile" data-i="3">🎀</div>
-          <div class="tile" data-i="4">💗</div>
-          <div class="tile" data-i="5">🐼</div>
-
-          <div class="tile" data-i="6">☕</div>
-          <div class="tile" data-i="7">💕</div>
-          <div class="tile" data-i="8">🍓</div>
-
-        </div>
-
-        <div class="challenge-actions">
-
-          <button
-            class="verify-btn"
-            id="verifyBtn"
-          >
-            سەلماندن
-          </button>
-
-        </div>
-
-      </div>
-
     </div>
 
-    <div
-      class="card letter-card"
-      id="letterCard"
-      style="display:none;margin-top:20px;"
-    >
+    <div class="grid-container" id="step2">
+        <div class="grid-header">
+            <h3>هەموو ئەو چوارگۆشانە هەڵبژێرە کە</h3>
+            <strong>دڵی 💖 تێدایە</strong>
+        </div>
+        
+        <div class="captcha-grid">
+            <div class="grid-item" onclick="toggleSelect(this)">🦋</div>
+            <div class="grid-item is-heart" onclick="toggleSelect(this)">💖</div>
+            <div class="grid-item" onclick="toggleSelect(this)">🌸</div>
+            
+            <div class="grid-item" onclick="toggleSelect(this)">🎀</div>
+            <div class="grid-item is-heart" onclick="toggleSelect(this)">💜</div>
+            <div class="grid-item" onclick="toggleSelect(this)">🐱</div>
+            
+            <div class="grid-item" onclick="toggleSelect(this)">☕</div>
+            <div class="grid-item" onclick="toggleSelect(this)">🍓</div>
+            <div class="grid-item is-heart" onclick="toggleSelect(this)">💝</div>
+        </div>
 
-      <div
-        style="
-        padding:28px;
-        text-align:center;
-        "
-      >
-
-        <img
-          src="panda.png"
-          style="
-          width:170px;
-          max-width:70%;
-          display:block;
-          margin:auto;
-          "
-        >
-
-        <h1
-          style="
-          color:#d86a97;
-          margin-top:20px;
-          "
-        >
-          تاقانەکەی دڵم 💖
-        </h1>
-
-      </div>
-
-      <div
-        style="
-        padding:0 25px 30px;
-        line-height:2.1;
-        color:#555;
-        "
-      >
-
-        تۆ بۆ من تەنها کەسێک نیت؛<br><br>
-
-        تۆ ئارامی دڵم و جوانترین بەشی ڕۆژەکانمی.<br><br>
-
-        بوونت لە ژیانمدا وەک ڕووناکییە لە شەوێکی ئارامدا،
-        وەک گەرماییە لە ڕۆژێکی سارددا.<br><br>
-
-        هەر شوێنێک بم،
-        دڵم هەر لەگەڵ تۆیە.<br><br>
-
-        خۆشمدەوێیت...
-        زیاتر لە هەموو وشەکان 💕
-
-      </div>
-
+        <div class="grid-footer">
+            <button class="verify-btn" onclick="verifyCaptcha()">سەلماندن</button>
+        </div>
     </div>
 
-  </div>
+    <div class="success-container" id="step3">
+        <div class="success-status">
+            <span>✓ سەلمێندرا بە سەرکەوتوویی 💖</span>
+        </div>
+        <div class="love-letter">
+            <h2>تاقانەکەی دڵم! 💖</h2>
+            <div class="illustration">👩‍❤️‍👨</div>
+            <p>
+                لەو ڕۆژەوەی هاتوویتە ژیانمەوە، هەموو شتێک جوانی و ئارامییەکی تایبەتی گرتووە! 🥺 تەنانەت بیرکردنەوەش لێت، زەردەخەنە دەخاتە سەر لێوەکانم. تۆ نەک هەر خۆشەویستمی، بەڵکوو ئارامیی ڕۆح و جوانترین ڕێکەوتی ژیانمی. باوەشت تاکە نیشتیمانە کە دەمەوێت بۆ هەمیشە تێیدا بمێنمەوە. بێسنوور ئاشقتم! ✨
+            </p>
+            <button class="reply-btn" onclick="finalAction()">منیش ئاشقتم 💖</button>
+        </div>
+    </div>
 
 </div>
 
-<audio
-  id="music"
-  loop
-  preload="auto"
->
-  <source
-    src="https://cdn.discordapp.com/attachments/1181378994243911761/1521260476544323648/74896a2c015d8bd377bdf7770c465185.mp3"
-    type="audio/mpeg"
-  >
-</audio>
-
 <script>
+    function openCaptchaGrid() {
+        document.getElementById('checkbox').style.background = '#f0f0f0';
+        
+        setTimeout(() => {
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+        }, 400);
+    }
 
-const checkbox =
-document.getElementById(
-"checkbox"
-);
+    function toggleSelect(element) {
+        element.classList.toggle('selected');
+    }
 
-const challenge =
-document.getElementById(
-"challenge"
-);
+    function verifyCaptcha() {
+        const totalHearts = document.querySelectorAll('.grid-item.is-heart').length;
+        const selectedHearts = document.querySelectorAll('.grid-item.is-heart.selected').length;
+        const selectedWrong = document.querySelectorAll('.grid-item.selected:not(.is-heart)').length;
 
-const verifyBtn =
-document.getElementById(
-"verifyBtn"
-);
+        if (selectedHearts === totalHearts && selectedWrong === 0) {
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').style.display = 'block';
+        } else {
+            alert('تکایە سەرجەم ئەو چوارگۆشانە هەڵبژێرە کە دڵیان تێدایە! 🥺');
+        }
+    }
 
-const letterCard =
-document.getElementById(
-"letterCard"
-);
-
-const music =
-document.getElementById(
-"music"
-);
-
-const tiles =
-[
-...document.querySelectorAll(
-".tile"
-)
-];
-
-const selected =
-new Set();
-
-const correct =
-[1,4,7];
-
-checkbox.onclick =
-() => {
-
-challenge.classList.toggle(
-"show"
-);
-
-};
-
-tiles.forEach(
-tile => {
-
-tile.onclick =
-() => {
-
-const i =
-Number(
-tile.dataset.i
-);
-
-if(
-selected.has(i)
-){
-
-selected.delete(i);
-
-tile.classList.remove(
-"selected"
-);
-
-}else{
-
-selected.add(i);
-
-tile.classList.add(
-"selected"
-);
-
-}
-
-};
-
-});
-
-verifyBtn.onclick =
-async () => {
-
-const ok =
-correct.every(
-i =>
-selected.has(i)
-);
-
-if(
-selected.size !== 3 ||
-!ok
-){
-alert(
-"تەنها دڵەکان هەڵبژێرە 💖"
-);
-return;
-}
-
-checkbox.innerHTML =
-"✓";
-
-checkbox.classList.add(
-"verified"
-);
-
-challenge.style.display =
-"none";
-
-document.getElementById(
-"mainTitle"
-).textContent =
-"سەلمێندرا بە سەرکەوتوویی 💖";
-
-letterCard.style.display =
-"block";
-
-try{
-  music.volume = 0.7;
-  await music.play();
-}catch(e){
-  console.log(e);
-}
-
-};
-
+    function finalAction() {
+        alert('دڵی منییی! 🥰 ڕۆژێکی خۆش بۆ تۆ! ❤️');
+    }
 </script>
 
 </body>
